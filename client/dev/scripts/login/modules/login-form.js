@@ -6,9 +6,9 @@ import { InputText, InputPassword, InputButton } from './form-elements.js';
 export default class LoginForm extends React.Component {
   render() {
     const listElements = [
-        <InputText id={'email'} label={'e-mail'} key={'email'} />,
-        <InputPassword key={'password'} />,
-        <InputButton key={'submit'} label={'Zaloguj się'} />
+        <InputText id={'email'} label={'e-mail'} />,
+        <InputPassword id={'password'} />,
+        <InputButton id={'loginBtn'} label={'Zaloguj się'} />
     ];
 
     return (
