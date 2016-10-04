@@ -3,6 +3,10 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
   entry: './dev/scripts/login/main.js',
 
+  devServer: {
+    hot: true
+  },
+  
   output: {
     filename: 'app/scripts/login/main.js',
     publicPath: ''
