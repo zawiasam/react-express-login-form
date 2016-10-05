@@ -1,5 +1,4 @@
 import React from 'react';
-import {render} from 'react-dom';
 
 export let InputText = React.createClass({
   render() {

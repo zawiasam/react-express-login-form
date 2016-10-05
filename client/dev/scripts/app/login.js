@@ -1,6 +1,6 @@
 import React from 'react'
 import {render} from 'react-dom'
-import Login from './modules/login-form.js'
+import Login from '../modules/Login/login-form.js'
 import Dispatcher from '../arch/dispatcher.js'
 
 var dispatcher = new Dispatcher();
@@ -9,7 +9,7 @@ dispatcher.register(function (action) {
 })
 
 function _loginRequest(value) {
-    dispatcher.dispatch({action: 'LOGIN_REQUEST', value: value})
+    dispatcher.dispatch({actionType: 'LOGIN_REQUEST', value: value})
 }
 
 render(

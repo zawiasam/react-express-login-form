@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from 'react-dom'
-import UnsortedList from './unsorted-list.js'
-import { InputText, InputPassword, InputButton } from './form-elements.js'
+import UnsortedList from '../Commons/unsorted-list.js'
+import { InputText, InputPassword, InputButton } from '../Commons/form-elements.js'
 
 export default React.createClass ({
   propTypes : {
