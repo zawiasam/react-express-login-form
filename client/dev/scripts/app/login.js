@@ -1,15 +1,12 @@
 import React from 'react'
 import {render} from 'react-dom'
 import Login from '../modules/Login/login-form.js'
-import Dispatcher from '../arch/dispatcher.js'
+import LoginStore from './LoginStore'
+import LoginActions from './LoginActions'
 
-var dispatcher = new Dispatcher();
-dispatcher.register(function (action) {
-    console.log(action);
-})
 
 function _loginRequest(value) {
-    dispatcher.dispatch({actionType: 'LOGIN_REQUEST', value: value})
+    LoginActions.doLoginRequest(value);
 }
 
 render(
