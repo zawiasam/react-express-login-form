@@ -1,14 +1,25 @@
-import React from 'react';
-import { render } from 'react-dom';
-import UnsortedList from './unsorted-list.js';
-import { InputText, InputPassword, InputButton } from './form-elements.js';
+import React from 'react'
+import { render } from 'react-dom'
+import UnsortedList from './unsorted-list.js'
+import { InputText, InputPassword, InputButton } from './form-elements.js'
 
-export default class LoginForm extends React.Component {
+export default React.createClass ({
+  propTypes : {
+    onLoginRequest: React.PropTypes.func.isRequired
+  },
+
+  getInitialState() {
+    return {
+      email: '',
+      password: ''
+    }
+  },
+
   render() {
     const listElements = [
-        <InputText id={'email'} label={'e-mail'} />,
-        <InputPassword id={'password'} />,
-        <InputButton id={'loginBtn'} label={'Zaloguj się'} />
+        <InputText id={'email'} label={'e-mail'} onChange={this._fieldValueChanged} />,
+        <InputPassword id={'password'} label={'hasło'} onChange={this._fieldValueChanged} />,
+        <InputButton id={'loginBtn'} label={'Zaloguj się'} onClick={this._loginRequest} />
     ];
 
     return (
@@ -16,5 +27,13 @@ export default class LoginForm extends React.Component {
         <UnsortedList items={listElements} />
       </form>
     )
+  },
+
+  _fieldValueChanged(value){
+    this.setState(value);
+  },
+
+  _loginRequest(){
+    this.props.onLoginRequest(this.state)
   }
-};
+})
