@@ -15,5 +15,5 @@ export default class Dispatcher {
         for (let callbackId in this._callbacks) {
             this._callbacks[callbackId](action);
         }
-    } 
+    }
 }

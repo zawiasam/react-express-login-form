@@ -3,8 +3,8 @@ import { render } from 'react-dom'
 import UnsortedList from '../Commons/unsorted-list.js'
 import { InputText, InputPassword, InputButton } from '../Commons/form-elements.js'
 
-export default React.createClass ({
-  propTypes : {
+export default React.createClass({
+  propTypes: {
     onLoginRequest: React.PropTypes.func.isRequired
   },
 
@@ -17,23 +17,29 @@ export default React.createClass ({
 
   render() {
     const listElements = [
-        <InputText id={'email'} label={'e-mail'} onChange={this._fieldValueChanged} />,
-        <InputPassword id={'password'} label={'hasło'} onChange={this._fieldValueChanged} />,
-        <InputButton id={'loginBtn'} label={'Zaloguj się'} onClick={this._loginRequest} />
+      (<InputText id={ 'email' } label={ 'e-mail' } onChange={ this._fieldValueChanged } onKeyDown={ this._onKeyDown } />),
+      (<InputPassword id={ 'password' } label={ 'hasło' } onChange={ this._fieldValueChanged } onKeyDown={ this._onKeyDown } />),
+      (<InputButton id={ 'loginBtn' } label={ 'Zaloguj się' } onClick={ this._loginRequest } />)
     ];
 
     return (
       <form>
-        <UnsortedList items={listElements} />
+        <UnsortedList items={ listElements } />
       </form>
     )
   },
 
-  _fieldValueChanged(value){
+  _onKeyDown(keyCode) {
+    if (keyCode === 13) {
+      this._loginRequest();
+    }
+  },
+
+  _fieldValueChanged(value) {
     this.setState(value);
   },
 
-  _loginRequest(){
+  _loginRequest() {
     this.props.onLoginRequest(this.state)
   }
 })
