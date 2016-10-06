@@ -70,6 +70,12 @@ export let InputPassword = React.createClass({
 })
 
 export let InputButton = React.createClass({
+  getDefaultProps: function() {
+    return {
+      onClick: emptyFunction,
+    };
+  },
+
   render() {
     return (
       <button type="button" className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" onClick={ this._clicked }>
@@ -82,10 +88,6 @@ export let InputButton = React.createClass({
   },
 
   _clicked(event) {
-    if (typeof this.props.onClick === 'function') {
-      this
-        .props
-        .onClick();
-    }
+    this.props.onClick();
   }
 })
