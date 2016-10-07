@@ -1,6 +1,6 @@
 import React from 'react'
 import UnsortedList from '../Commons/unsorted-list.js'
-import { InputText, InputPassword, InputButton } from '../Commons/form-elements.js'
+import * as Form from '../Commons/form-elements.js'
 
 export default React.createClass({
   propTypes: {
@@ -16,9 +16,9 @@ export default React.createClass({
 
   render() {
     const listElements = [
-      (<InputText id={ 'email' } label={ 'e-mail' } onChange={ this._fieldValueChanged } onKeyDown={ this._onKeyDown } />),
-      (<InputPassword id={ 'password' } label={ 'hasło' } onChange={ this._fieldValueChanged } onKeyDown={ this._onKeyDown } />),
-      (<InputButton id={ 'loginBtn' } label={ 'Zaloguj się' } onClick={ this._loginRequest } />)
+      (<Form.InputText id={ 'email' } label={ 'e-mail' } onChange={ this._fieldValueChanged } onKeyDown={ this._onKeyDown } />),
+      (<Form.InputPassword id={ 'password' } label={ 'hasło' } onChange={ this._fieldValueChanged } onKeyDown={ this._onKeyDown } />),
+      (<Form.Button id={ 'loginBtn' } label={ 'Zaloguj się' } onClick={ this._loginRequest } />)
     ];
 
     return (
