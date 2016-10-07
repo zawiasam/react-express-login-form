@@ -5,9 +5,11 @@ import _ from 'lodash'
 class LoginActions {
     static doLoginRequest(payload) {
         LoginDispatcher.dispatch({
-            actionType: LoginConstants.LOGIN_REQUESTED,
-            email: payload.email,
-            password: payload.password,
+            type: LoginConstants.LOGIN_REQUESTED,
+            credentials: {
+                email: payload.email,
+                password: payload.password,
+            }
         });
     }
 }
