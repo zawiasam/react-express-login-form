@@ -33,7 +33,7 @@ export default class LoginForm extends React.Component {
     ];
 
     if (this.state.authorized) {
-      return(<Redirect location="/page-to-go-to" />)
+      return(<Redirect location={ this.props.routePath } />)
     }
 
     return (
@@ -66,4 +66,5 @@ export default class LoginForm extends React.Component {
 
 LoginForm.propTypes = {
   onLoginRequest: React.PropTypes.func.isRequired,
+  routePath: React.PropTypes.string.isRequired
 }

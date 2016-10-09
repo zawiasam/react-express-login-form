@@ -7,7 +7,7 @@ class Redirect extends React.Component {
   }
 
   componentDidMount() {
-    this.context.router.push('/module');
+    this.context.router.push(this.props.location);
   };
 
   render() {

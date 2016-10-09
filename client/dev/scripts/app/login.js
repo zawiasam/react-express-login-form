@@ -10,9 +10,7 @@ function _loginRequest(value) {
 
 let AppLogin = React.createClass({
     render() {
-        return (
-            <LoginForm onLoginRequest={ _loginRequest } />
-        )
+        return (<LoginForm onLoginRequest={_loginRequest} routePath="/dashboard" />)
     }
 })
 
