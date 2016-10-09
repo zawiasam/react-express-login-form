@@ -1,7 +1,7 @@
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  entry: './dev/scripts/app/login.js',
+  entry: './dev/scripts/app/index.js',
 
   devServer: {
     hot: true

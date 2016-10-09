@@ -4,7 +4,7 @@ import ReactRouter from 'react-router'
 import Redirect from '../Commons/redirect.react'
 import UnsortedList from '../Commons/unsorted-list'
 import * as Form from '../Commons/form-elements'
-import LoginStore from '../../app/LoginStore'
+import LoginStore from '../../app/Login/LoginStore'
 
 export default class LoginForm extends React.Component {
   constructor(props) {
@@ -65,5 +65,5 @@ export default class LoginForm extends React.Component {
 }
 
 LoginForm.propTypes = {
-  onLoginRequest: React.PropTypes.func.isRequired
+  onLoginRequest: React.PropTypes.func.isRequired,
 }

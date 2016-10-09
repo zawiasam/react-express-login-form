@@ -1,5 +1,6 @@
+import EventEmmiter from '../../arch/EventEmitter'
+
 import LoginDispatcher from './LoginDispatcher'
-import EventEmmiter from '../arch/EventEmitter'
 import LoginConstants from './LoginConstants'
 
 import promisejs from 'promisejs'
