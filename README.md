@@ -1,5 +1,5 @@
-# simple-login-node-react
-ExpressJs with Firebase on board plus React login form doing simple auth
+# ReactJs ExpressJs simple login form
+ExpressJs with Firebase on board plus React login form doing simple auth.
 
 # Using React Component
 If you don't know how to build go to [build](#build) section.
