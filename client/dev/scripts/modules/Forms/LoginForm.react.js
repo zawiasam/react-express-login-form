@@ -10,12 +10,7 @@ export default class LoginForm extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      email: '',
-      password: '',
-      userName: '',
-      authorized: false
-    }
+    this.state = LoginStore.getLoginData();
 
     this._fieldValueChanged = this._fieldValueChanged.bind(this);
     this._loginRequest = this._loginRequest.bind(this);
@@ -58,9 +53,7 @@ export default class LoginForm extends React.Component {
   }
 
   _stateUpdate(newState) {
-    this.setState({
-      authorized: true
-    })
+    this.setState(LoginStore.getLoginData());
   }
 }
 
