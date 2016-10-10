@@ -1,21 +1,51 @@
 import auth from '../../commons/auth-firebase.js';
+import _ from 'lodash'
 
-export default class LoginController {
-  static validateUserByEmail(req, res, next) {
+function authWithFirebase(credentials) {
+    const loginFaildMessage = 'You shell not pass!'
+    return new Promise((resolve, reject) => {
         auth
-            .getUser(req.body.email)
+            .getUser(credentials.email)
             .then((user) => {
-                if (user && user.password === req.body.password) {
-                    res.status(200).send('auth');
+                if (user && user.password === credentials.password) {
+                    resolve(user);
                 } else {
-                    res
-                        .status(401)
-                        .send('You shell not pass!');
+                    reject(loginFaildMessage);
                 }
             }, (reason) => {
-                res
-                    .status(401)
-                    .send('You shell not pass!');
+                reject(loginFaildMessage);
             });
-  }  
+    })
+}
+
+function authWithFake(credentials) {
+    return new Promise((resolve, reject) => {
+        const user = {
+            name: 'Maciej Zawiasa'
+        };
+        const userIn = _.pick(credentials, ['email']);
+        const userOut = _.assign(user, userIn);
+        resolve(userOut);
+    });
+}
+
+let di = {
+    prod: {
+        auth: authWithFirebase
+    },
+    fake: {
+        auth: authWithFake
+    }
+}
+
+export default class LoginController {
+    static validateUserByEmail(req, res, next) {
+        di['fake'].auth(req.body)
+            .then(function authSuccess(data) {
+                res.status(200).send(data);
+            },
+                function authFaild(reason) {
+                    res.status(401).send(reason);
+                });
+    }
 }
