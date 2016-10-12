@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactRouter from 'react-router'
 
-import Redirect from '../Commons/redirect.react'
+import Redirect from '../Commons/Navigation/redirect.react'
 import UnsortedList from '../Commons/unsorted-list'
 import * as Form from '../Commons/form-elements'
 import LoginStore from '../../app/Login/LoginStore'
