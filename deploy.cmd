@@ -111,7 +111,7 @@ IF EXIST "%DEPLOYMENT_TARGET%\package.json" (
 )
 
 :: 4. Build the webclient
-IF EXIST "%DEPLOYMENT_TARGET%\webpack.config.js" (
+IF EXIST "%DEPLOYMENT_TARGET%\Client\webpack.config.js" (
   pushd "%DEPLOYMENT_TARGET%"
   echo "Building web site using Webpack"
   call :ExecuteCmd "run webpack"
