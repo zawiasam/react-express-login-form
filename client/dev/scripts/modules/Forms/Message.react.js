@@ -4,19 +4,20 @@ import * as MessageElements from './MessageElements.react'
 
 export default class Message extends React.Component {
     render() {
+        const message = this.props.message;
         return (
             <section className="message.react">
                 <Layout.GridRow>
                     <Layout.GridColumn columnSize="8">
-                        <MessageElements.MessageTitle value={this.props.messageTitle} />
+                        <MessageElements.MessageTitle value={message.messageTitle} />
                     </Layout.GridColumn>
                     <Layout.GridColumn columnSize="4">
-                        <MessageElements.MessageDate value={this.props.messageDate} />
+                        <MessageElements.MessageDate value={message.messageDate} />
                     </Layout.GridColumn>
                 </Layout.GridRow>
                 <Layout.GridRow>
                     <Layout.GridColumn columnSize="12">
-                        <MessageElements.MessageBody value={this.props.messageBody} />
+                        <MessageElements.MessageBody value={message.messageBody} />
                     </Layout.GridColumn>
                 </Layout.GridRow>
 

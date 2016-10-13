@@ -6,6 +6,8 @@ export default class MessageDate extends React.Component {
     }
 
     render() {
-        return <div>{this.props.value}</div>
+        const date = this.props.value;
+        const stringDate = ("0" + date.getDate()).slice(-2) + "-" + ("0" + (date.getMonth() + 1)).slice(-2) + "-" + date.getFullYear();
+        return <div>{stringDate}</div>
     }
 }
