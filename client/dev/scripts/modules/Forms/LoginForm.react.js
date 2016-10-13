@@ -33,7 +33,11 @@ export default class LoginForm extends React.Component {
 
     return (
       <form>
-        <UnsortedList items={ listElements } />
+        <div className="mdl-layout">
+          <div className="mdl-layout__content">
+            <UnsortedList items={listElements}/>
+          </div>
+        </div>
       </form>
     )
   }

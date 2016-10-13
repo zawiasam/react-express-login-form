@@ -1,5 +1,6 @@
 import React from 'react'
 import Message from '../modules/Forms/Message.react'
+import Card from '../modules/Forms/Card.react'
 import MessageStore from './Message/MessageStore'
 
 export default class AppDashboard extends React.Component {
@@ -12,7 +13,7 @@ export default class AppDashboard extends React.Component {
 
   render() {
     return (
-      <Message message={this.state.message} />
+      <Card message={this.state.message} />
     )
   }
 }
