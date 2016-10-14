@@ -1,7 +1,7 @@
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  entry: './dev/scripts/login/main.js',
+  entry: './dev/scripts/app/index.js',
 
   devServer: {
     hot: true
@@ -14,7 +14,9 @@ module.exports = {
 
   plugins: [
     new CopyWebpackPlugin([
-      { context: 'dev', from: '*.html', to: 'app/' }
+      { context: 'dev', from: '*.html', to: 'app/' },
+      { context: 'dev', from: 'css', to: 'app/css/' },
+      { context: 'dev', from: 'libs', to: 'app/libs/' },
     ])
   ],
 

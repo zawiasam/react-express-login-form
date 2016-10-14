@@ -4,13 +4,23 @@ import _ from 'lodash';
 export default class AuthFirebase {
     static getUser(email) {
         return new Promise((resolve, reject) => {
-            firebase.database().ref("users")
+            firebase
+                .database()
+                .ref("users")
                 .orderByChild('email')
                 .equalTo(email)
                 .once('value', (snap) => {
-                    const userObj = snap.val();
-                    resolve(userObj);
+                    /* resolve */
+                    let snapsValues = snap.val();
+                    let userObj = [];
+                    for (let itemId in snapsValues) {
+                        userObj.push(_.assign({
+                            _id: itemId
+                        }, snapsValues[itemId]));
+                    }
+                    resolve(userObj[0]);
                 }, (err) => {
+                    /* reject */
                     reject(err);
                 });
         });

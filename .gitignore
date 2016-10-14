@@ -1,2 +1,7 @@
+# Do not track
 **/node_modules/*
 client/app/*
+coverage/*
+
+# exceptions
+!client/node_modules/promisejs
