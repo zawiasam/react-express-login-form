@@ -1,0 +1,15 @@
+.demo-card-square.mdl-card {
+  width: 640px;
+  height: 320px;
+}
+
+
+.mdl-layout {
+  align-items: center;
+  justify-content: center;
+}
+
+.mdl-layout__content {
+    padding: 24px;
+    flex: none;
+}
