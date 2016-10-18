@@ -17,10 +17,14 @@ export default class Card extends React.Component {
         </div>
         <div className="mdl-card__actions mdl-card--border">
           <a className="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-            Wyświetl
+            wyświetl
           </a>
           <a className="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-            Archiwizuj
+            archiwizuj
+          </a>
+          <div className="mdl-layout-spacer"></div>
+          <a className="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+            odpowiedz
           </a>
         </div>
       </div>

@@ -17,6 +17,7 @@ module.exports = {
       { context: 'dev', from: '*.html', to: 'app/' },
       { context: 'dev', from: 'css', to: 'app/css/' },
       { context: 'dev', from: 'libs', to: 'app/libs/' },
+      { context: 'dev', from: 'images', to: 'app/images/' },
     ])
   ],
 
