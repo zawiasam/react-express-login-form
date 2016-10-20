@@ -1,6 +1,6 @@
 .demo-card-square.mdl-card {
-  width: 640px;
   height: 320px;
+  width: 100%;  
 }
 
 /**
