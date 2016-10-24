@@ -40,14 +40,14 @@ module.exports = {
       },
     ]),
     new uglifyJsPlugin({
-        cacheFolder: path.resolve(__dirname, 'public/cached_uglify/'),
+        cacheFolder: path.resolve(__dirname, 'cache/'),
     })
   ],
 
   module: {
     loaders: [
       {
-                    cacheable: true,
+        cacheable: true,
         test: /\.js.{0,1}$/,
         exclude: /node_modules/,
         loader: 'babel-loader?presets[]=es2015&presets[]=react'

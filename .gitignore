@@ -1,7 +1,10 @@
 # Do not track
 **/node_modules/*
-client/app/*
 coverage/*
+
+client/app/*
+client/cache/*
+
 
 # exceptions
 !client/node_modules/promisejs
