@@ -9,7 +9,8 @@ let loginData = {
     email: '',
     password: '',
     userName: '',
-    authorized: false
+    authorized: false,
+    shouldRedirect: false,
 }
 
 class LoginStore extends EventEmmiter {
@@ -39,6 +40,7 @@ class LoginStore extends EventEmmiter {
     }
 
     loginRequest(credentials) {
+        loginData.shouldRedirect = false;
         loginData.email = credentials.email;
         loginData.password = credentials.password;
 
@@ -51,9 +53,14 @@ class LoginStore extends EventEmmiter {
                     return;
                 } else {
                     loginData.authorized = true;
+                    loginData.shouldRedirect = true;
                 }
                 this.emmitChange();
             });
+    }
+
+    setShouldRedirect(option){
+        loginData.shouldRedirect = option;
     }
 
     emmitChange() {

@@ -27,10 +27,11 @@ export default class LoginForm extends React.Component {
       (<Form.Button id={ 'loginBtn' } label={ 'Zaloguj się' } onClick={ this._loginRequest } />)
     ];
 
-    if (this.state.authorized) {
+    if (this.state.authorized && !!this.state.shouldRedirect) {
+      LoginStore.setShouldRedirect(false);
       return(<Redirect location={ this.props.routePath } />)
     }
-
+    
     return (
       <form>
         <div className="mdl-layout">
