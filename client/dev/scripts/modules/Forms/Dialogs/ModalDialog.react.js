@@ -71,8 +71,8 @@ export default class ModalDialog extends React.Component {
             {this.props.children}
           </div>
           <div className="mdl-dialog__actions">
-            <button type="button" className="mdl-button ok">Agree</button>
-            <button type="button" className="mdl-button close">Disagree</button>
+            <button type="button" className="mdl-button ok">Ok</button>
+            <button type="button" className="mdl-button close">Anuluj</button>
           </div>
         </dialog>
       </div>
