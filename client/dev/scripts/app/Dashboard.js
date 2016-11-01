@@ -27,9 +27,12 @@ export default class AppDashboard extends React.Component {
         <DashboardHeader />
         <DashboardMainContent>
           <ModalDialog onClosing={ _dialogHandler } title="Is it good to have title?">
-            <p>
-              My content
-            </p>
+            <form>
+              <div className="mdl-textfield mdl-js-textfield">
+                <textarea className="mdl-textfield__input" type="text" rows="3" id="messageBody"></textarea>
+                <label className="mdl-textfield__label" htmlFor="messageBody">Treść wiadomości ...</label>
+              </div>
+            </form>
           </ModalDialog>
           <Card message={ this.state.message } />
         </DashboardMainContent>
