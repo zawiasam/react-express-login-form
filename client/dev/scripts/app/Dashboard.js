@@ -20,6 +20,15 @@ export default class AppDashboard extends React.Component {
     }
   }
 
+  componentDidMount() {
+      componentHandler.upgradeDom();
+  }
+
+  componentDidUpdate() {
+      // This upgrades all upgradable components (i.e. with 'mdl-js-*' class)
+      componentHandler.upgradeDom();
+  }
+
   render() {
     return (
       <div className="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">

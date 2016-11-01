@@ -8,10 +8,16 @@ function _loginRequest(value) {
     LoginActions.doLoginRequest(value);
 }
 
-let AppLogin = React.createClass({
-    render() {
-        return (<LoginForm onLoginRequest={_loginRequest} routePath="/dashboard" />)
+export default class AppLogin extends React.Component {
+    componentDidMount() {
+        componentHandler.upgradeDom();
     }
-})
 
-export default AppLogin
+    componentDidUpdate() {
+        componentHandler.upgradeDom();
+    }
+
+    render() {
+        return (<LoginForm onLoginRequest={ _loginRequest } routePath="/dashboard" />)
+    }
+}
