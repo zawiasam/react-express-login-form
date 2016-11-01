@@ -66,11 +66,9 @@ export default class ModalDialog extends React.Component {
       <div>
         <button id={ _getShowDialogId(this) } type="button" className="mdl-button">Show Dialog</button>
         <dialog className="mdl-dialog" id={ _getDialogId(this) }>
-          <h4 className="mdl-dialog__title">Allow data collection?</h4>
+          <h4 className="mdl-dialog__title">{this.props.title}</h4>
           <div className="mdl-dialog__content">
-            <p>
-              Allowing us to collect data will let us get you the information you want faster.
-            </p>
+            {this.props.children}
           </div>
           <div className="mdl-dialog__actions">
             <button type="button" className="mdl-button ok">Agree</button>
@@ -84,10 +82,11 @@ export default class ModalDialog extends React.Component {
 
 ModalDialog.propTypes = {
   dialogId: React.PropTypes.string,
-  showButtonId: React.PropTypes.string,
+  title: React.PropTypes.string,
   onClosing: React.PropTypes.func
 }
 
 ModalDialog.defaultProps = {
-  dialogId: "dialog" + new Date().getTime().toString()
+  dialogId: "dialog" + new Date().getTime().toString(),
+  title: "",
 }

@@ -8,7 +8,7 @@ import Card from '../modules/Forms/Card.react'
 import Menu from '../modules/Forms/Menu.react'
 import MessageStore from './Message/MessageStore'
 
-function _dialogHandler(obj){
+function _dialogHandler(obj) {
   console.log(obj.action);
 }
 
@@ -26,7 +26,11 @@ export default class AppDashboard extends React.Component {
         <DashboardSideMenu />
         <DashboardHeader />
         <DashboardMainContent>
-        <ModalDialog onClosing={_dialogHandler} />
+          <ModalDialog onClosing={ _dialogHandler } title="Is it good to have title?">
+            <p>
+              My content
+            </p>
+          </ModalDialog>
           <Card message={ this.state.message } />
         </DashboardMainContent>
       </div>
