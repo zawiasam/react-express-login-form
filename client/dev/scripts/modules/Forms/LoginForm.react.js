@@ -2,7 +2,7 @@ import React from 'react'
 import ReactRouter from 'react-router'
 
 import Redirect from '../Commons/Navigation/redirect.react'
-import UnsortedList from '../Commons/unsorted-list'
+import UnorderedList from '../Commons/unordered-list'
 import * as Form from '../Commons/form-elements'
 import LoginStore from '../../app/Login/LoginStore'
 
@@ -36,7 +36,7 @@ export default class LoginForm extends React.Component {
       <form>
         <div className="mdl-layout">
           <div className="mdl-layout__content">
-            <UnsortedList items={listElements}/>
+            <UnorderedList items={listElements}/>
           </div>
         </div>
       </form>
