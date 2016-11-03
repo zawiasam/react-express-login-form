@@ -11,7 +11,7 @@ export default class InputButton extends React.Component {
 
     render() {
         return (
-            <button type="button" className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" onClick={ this._clicked }>
+            <button type="button" className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" onClick={ this._clicked } id={ this.props.id }>
               { this.props.label }
               <div className="ripples buttonRipples">
                 <span className="ripplesCircle"></span>
