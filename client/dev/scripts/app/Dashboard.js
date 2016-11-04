@@ -3,7 +3,7 @@ import Message from '../modules/Forms/Message.react'
 import DashboardSideMenu from '../modules/Forms/Dashboard/SideMenu.react'
 import DashboardMainContent from '../modules/Forms/Dashboard/MainContent.react'
 import DashboardHeader from '../modules/Forms/Dashboard/Header.react'
-import ModalDialog from '../modules/Forms/Dialogs/ModalDialog.react'
+import NewMessageDialog from '../modules/Forms/Dialogs/NewMessageDialog.react'
 import Card from '../modules/Forms/Card.react'
 import Menu from '../modules/Forms/Menu.react'
 import MessageStore from './Message/MessageStore'
@@ -35,14 +35,7 @@ export default class AppDashboard extends React.Component {
         <DashboardSideMenu />
         <DashboardHeader />
         <DashboardMainContent>
-          <ModalDialog onClosing={ _dialogHandler } title="Is it good to have title?">
-            <form>
-              <div className="mdl-textfield mdl-js-textfield">
-                <textarea className="mdl-textfield__input" type="text" rows="3" id="messageBody"></textarea>
-                <label className="mdl-textfield__label" htmlFor="messageBody">Treść wiadomości ...</label>
-              </div>
-            </form>
-          </ModalDialog>
+          <NewMessageDialog onClosing={ _dialogHandler } />
           <Card message={ this.state.message } />
         </DashboardMainContent>
       </div>
