@@ -32,6 +32,11 @@ export default class InputPassword extends React.Component {
     }
 }
 
+InputPassword.propTypes = {
+    onChange: React.PropTypes.func,
+    onKeyDown: React.PropTypes.func,  
+}
+
 InputPassword.defaultProps = {
     onChange: emptyFunction,
     onKeyDown: emptyFunction,

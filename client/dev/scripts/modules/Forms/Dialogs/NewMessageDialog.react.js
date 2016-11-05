@@ -20,10 +20,7 @@ export default class NewMessageDialog extends React.Component {
       <ModalDialog onClosing={ this._dialogHandler } title="Is it good to have title?">
         <form>
           <FormElements.InputText id="blabla" />
-          <div className="mdl-textfield mdl-js-textfield">
-            <textarea className="mdl-textfield__input" type="text" rows="3" id="messageBody"></textarea>
-            <label className="mdl-textfield__label" htmlFor="messageBody">Treść wiadomości ...</label>
-          </div>
+          <FormElements.InputTextArea id="newMessageContent" />
         </form>
       </ModalDialog>
     )

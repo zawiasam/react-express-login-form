@@ -25,6 +25,10 @@ export default class InputButton extends React.Component {
     }
 }
 
+InputButton.propTypes = {
+    onClick: React.PropTypes.func,
+}
+
 InputButton.defaultProps = {
     onClick: emptyFunction,
 }
