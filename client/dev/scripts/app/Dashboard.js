@@ -12,6 +12,11 @@ function _dialogHandler(obj) {
   console.log(obj.action);
 }
 
+// This upgrades all upgradable components (i.e. with 'mdl-js-*' class)
+function domUpgrade(){
+  componentHandler.upgradeDom();
+}
+
 export default class AppDashboard extends React.Component {
   constructor(props) {
     super(props)
@@ -21,12 +26,11 @@ export default class AppDashboard extends React.Component {
   }
 
   componentDidMount() {
-      componentHandler.upgradeDom();
+      domUpgrade();
   }
 
   componentDidUpdate() {
-      // This upgrades all upgradable components (i.e. with 'mdl-js-*' class)
-      componentHandler.upgradeDom();
+      domUpgrade();
   }
 
   render() {
