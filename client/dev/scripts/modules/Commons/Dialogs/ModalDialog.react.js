@@ -8,28 +8,33 @@ function _getOkButtonId(ctx) {
   return _getDialogId(ctx) + '-btn-ok-id';
 }
 
-function _getShowDialogId(ctx) {
-  return _getDialogId(ctx) + '-btn-show-id';
+function _getShowButtonId(ctx) {
+  let useExistingButton = ctx.props.useThisOpenButton;
+  if (useExistingButton) {
+    return useExistingButton;
+  } else {
+    return _getDialogId(ctx) + '-btn-show-id';
+  }
 }
 
 function _handleDialogAction(dialog, component, actionType) {
-      let hasHandler = !!component.props.onClosing;
-      let handlerResult = false;
+  let hasHandler = !!component.props.onClosing;
+  let handlerResult = false;
 
-      if (hasHandler) {
-        handlerResult = component.props.onClosing({
-          action: actionType
-        });
+  if (hasHandler) {
+    handlerResult = component.props.onClosing({
+      action: actionType
+    });
 
-        if (typeof(handlerResult) !== "boolean") {
-          handlerResult = true;
-        }
-      }
-
-      if (!hasHandler || handlerResult) {
-        dialog.close();
-      }
+    if (typeof (handlerResult) !== "boolean") {
+      handlerResult = true;
     }
+  }
+
+  if (!hasHandler || handlerResult) {
+    dialog.close();
+  }
+}
 
 export default class ModalDialog extends React.Component {
   constructor(props) {
@@ -41,7 +46,7 @@ export default class ModalDialog extends React.Component {
 
   componentDidMount() {
     let dialog = document.querySelector('#' + _getDialogId(this));
-    let showDialogButton = document.querySelector('#' + _getShowDialogId(this));
+    let showDialogButton = document.querySelector('#' + _getShowButtonId(this));
     let _component = this;
 
     if (!dialog.showModal) {
@@ -52,23 +57,30 @@ export default class ModalDialog extends React.Component {
       dialog.showModal();
     });
 
-    dialog.querySelector('.close').addEventListener('click', function dialogCancelClicked(){
+    dialog.querySelector('.close').addEventListener('click', function dialogCancelClicked() {
       _handleDialogAction(dialog, _component, "cancel");
     });
 
-    dialog.querySelector('.ok').addEventListener('click', function dialogOkClicked(){
+    dialog.querySelector('.ok').addEventListener('click', function dialogOkClicked() {
       _handleDialogAction(dialog, _component, "ok");
     });
+
   }
 
   render() {
+    let generateButton = !this.props.useThisOpenButton;
+    let showButtonToRender = undefined;
+    if (generateButton) {
+      showButtonToRender = <button id={ _getShowButtonId(this) } type="button" className="mdl-button">Show Dialog</button>;
+    }
+    
     return (
       <div>
-        <button id={ _getShowDialogId(this) } type="button" className="mdl-button">Show Dialog</button>
+        { showButtonToRender }
         <dialog className="mdl-dialog" id={ _getDialogId(this) }>
-          <h4 className="mdl-dialog__title">{this.props.title}</h4>
+          <h4 className="mdl-dialog__title">{ this.props.title }</h4>
           <div className="mdl-dialog__content">
-            {this.props.children}
+            { this.props.children }
           </div>
           <div className="mdl-dialog__actions">
             <button type="button" className="mdl-button ok">Ok</button>
@@ -83,10 +95,12 @@ export default class ModalDialog extends React.Component {
 ModalDialog.propTypes = {
   dialogId: React.PropTypes.string,
   title: React.PropTypes.string,
-  onClosing: React.PropTypes.func
+  onClosing: React.PropTypes.func,
+  useThisOpenButton: React.PropTypes.string,
 }
 
 ModalDialog.defaultProps = {
   dialogId: "dialog" + new Date().getTime().toString(),
   title: "",
+  useThisOpenButton: undefined,
 }

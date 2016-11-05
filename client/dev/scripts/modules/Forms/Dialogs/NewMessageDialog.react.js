@@ -17,7 +17,10 @@ export default class NewMessageDialog extends React.Component {
 
   render() {
     return (
-      <ModalDialog onClosing={ this._dialogHandler } title="Is it good to have title?">
+      <ModalDialog 
+        onClosing={ this._dialogHandler }
+        title="Is it good to have title?"
+        useThisOpenButton="btn-new_message">
         <form>
           <FormElements.InputText id="blabla" />
           <FormElements.InputTextArea id="newMessageContent" />
