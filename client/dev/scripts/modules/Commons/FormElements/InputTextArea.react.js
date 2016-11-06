@@ -20,12 +20,11 @@ export default class InputTextArea extends React.Component {
     }
 
     _changed(event) {
-        let value = {}
-        value[this.props.id] = event.target.value;
-
+        let args = {}
+        args[this.props.id] = event.target.value;
         this
             .props
-            .onChange(value)
+            .onChange(args)
     }
 
     _keyDown(event) {

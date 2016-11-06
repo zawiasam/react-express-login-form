@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import AutoComplate from 'react-autocomplete'
 import ModalDialog from '../../Commons/Dialogs/ModalDialog.react'
 import * as FormElements from '../../Commons/FormElements.react'
@@ -94,6 +95,61 @@ let styles = {
   }
 }
 
+class ModalDialogMessage extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      title: '',
+      message: '',
+    }
+
+    this._onDialogClose = this._onDialogClose.bind(this);
+    this._onChange = this._onChange.bind(this);
+  }
+  
+  _onChange(args) {
+    this.setState(args);
+  }
+
+  _onDialogClose(action) {
+    if (action.action === 'ok'){
+      action.title = this.state.title;
+      action.message = this.state.message;
+      this.props.onClosing(action);
+    }
+  }
+
+  render() {
+        return (<ModalDialog 
+          onClosing={ this._onDialogClose }
+          title="Is it good to have title?"
+          useThisOpenButton="btn-new_message"
+          dialogClassName="mdl-dialog mdl-dialog__new-message">
+          <form>
+            <AutoComplate 
+              menuStyle = { styles.menuStyle }
+              value={ this.state.value } 
+              inputProps={ { name: "US state", id: "states-autocomplete" } } 
+              items={ getStates() } 
+              getItemValue={ (item) => item.name } 
+              shouldItemRender={ matchStateToTerm }
+              // sortItems={ sortStates } 
+              onChange={ (event, value) => this.setState({ value }) } 
+              onSelect={ value => this.setState({ value }) }
+              renderItem={ (item, isHighlighted) => ( <div style={ isHighlighted ? styles.highlightedItem : styles.item } key={ item.abbr }>
+                                                        { item.name }
+                                                      </div> ) } 
+            />
+            <FormElements.InputText id="title" onChange={this._onChange } />
+            <FormElements.InputTextArea id="message" onChange={ this._onChange } />
+          </form>
+        </ModalDialog>)
+  }
+}
+ModalDialogMessage.propTypes ={
+  onClosing: React.PropTypes.func,
+}
+
 export default class NewMessageDialog extends React.Component {
   constructor(props) {
     super(props)
@@ -103,37 +159,21 @@ export default class NewMessageDialog extends React.Component {
 
   _dialogHandler(obj) {
     if (this.props.onClosing) {
-      return this.props.onClosing(obj);
+       this.props.onClosing(obj);
+       ReactDOM.unmountComponentAtNode(document.getElementById("dialog"))
     }
   }
 
+  componentDidMount() {
+    let component = this;
+    document.querySelector("#btn-new_message").addEventListener('click', function(params) {
+        ReactDOM.render( <ModalDialogMessage onClosing={component._dialogHandler} />
+          , document.getElementById("dialog"), ()=>{ componentHandler.upgradeDom() })
+    })
+  }
+
   render() {
-    return (
-      <ModalDialog 
-        onClosing={ this._dialogHandler }
-        title="Is it good to have title?"
-        useThisOpenButton="btn-new_message"
-        dialogClassName="mdl-dialog mdl-dialog__new-message">
-        <form>
-          <AutoComplate 
-            menuStyle = { styles.menuStyle }
-            value={ this.state.value } 
-            inputProps={ { name: "US state", id: "states-autocomplete" } } 
-            items={ getStates() } 
-            getItemValue={ (item) => item.name } 
-            shouldItemRender={ matchStateToTerm }
-            // sortItems={ sortStates } 
-            onChange={ (event, value) => this.setState({ value }) } 
-            onSelect={ value => this.setState({ value }) }
-            renderItem={ (item, isHighlighted) => ( <div style={ isHighlighted ? styles.highlightedItem : styles.item } key={ item.abbr }>
-                                                       { item.name }
-                                                    </div> ) } 
-          />
-          <FormElements.InputText id="blabla" />
-          <FormElements.InputTextArea id="newMessageContent" />
-        </form>
-      </ModalDialog>
-    )
+    return (<div style={{display: "none"}}/>  )
   }
 }
 

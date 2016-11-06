@@ -9,7 +9,7 @@ import Menu from '../modules/Forms/Menu.react'
 import MessageStore from './Message/MessageStore'
 
 function _dialogHandler(obj) {
-  console.log(obj.action);
+  console.log(obj);
 }
 
 // This upgrades all upgradable components (i.e. with 'mdl-js-*' class)

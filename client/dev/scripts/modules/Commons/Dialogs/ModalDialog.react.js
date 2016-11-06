@@ -55,8 +55,8 @@ export default class ModalDialog extends React.Component {
       dialogPolyfill.registerDialog(dialog);
     }
 
-    showDialogButton.addEventListener('click', function() {
       dialog.showModal();
+    showDialogButton.addEventListener('click', function() {
     });
 
     dialog.querySelector('.close').addEventListener('click', function dialogCancelClicked() {
