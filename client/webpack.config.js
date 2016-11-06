@@ -3,6 +3,7 @@
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var uglifyJsPlugin = require('webpack-uglify-js-plugin');
 var path = require('path');
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
   entry: './dev/scripts/app/index.js',
@@ -42,6 +43,7 @@ module.exports = {
     new uglifyJsPlugin({
         cacheFolder: path.resolve(__dirname, 'cache/'),
     })
+    new ExtractTextPlugin('app/css/[name].css'),
   ],
 
   module: {
@@ -51,7 +53,11 @@ module.exports = {
         test: /\.js.{0,1}$/,
         exclude: /node_modules/,
         loader: 'babel-loader?presets[]=es2015&presets[]=react'
-      }
+      },
+      {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader'),
+      },
     ]
   },
 

@@ -112,7 +112,8 @@ export default class NewMessageDialog extends React.Component {
       <ModalDialog 
         onClosing={ this._dialogHandler }
         title="Is it good to have title?"
-        useThisOpenButton="btn-new_message">
+        useThisOpenButton="btn-new_message"
+        dialogClassName="mdl-dialog mdl-dialog__new-message">
         <form>
           <AutoComplate 
             menuStyle = { styles.menuStyle }

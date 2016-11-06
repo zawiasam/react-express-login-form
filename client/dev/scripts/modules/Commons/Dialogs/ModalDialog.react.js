@@ -1,4 +1,6 @@
-import React from 'react';
+import React from 'react'
+import dialogPolyfill from 'dialog-polyfill'
+import 'dialog-polyfill/dialog-polyfill.css'
 
 function _getDialogId(ctx) {
   return ctx.state.dialogId;
@@ -73,11 +75,11 @@ export default class ModalDialog extends React.Component {
     if (generateButton) {
       showButtonToRender = <button id={ _getShowButtonId(this) } type="button" className="mdl-button">Show Dialog</button>;
     }
-    
+
     return (
       <div>
         { showButtonToRender }
-        <dialog className="mdl-dialog" id={ _getDialogId(this) }>
+        <dialog className={ this.props.dialogClassName } id={ _getDialogId(this) }>
           <h4 className="mdl-dialog__title">{ this.props.title }</h4>
           <div className="mdl-dialog__content">
             { this.props.children }
@@ -97,10 +99,12 @@ ModalDialog.propTypes = {
   title: React.PropTypes.string,
   onClosing: React.PropTypes.func,
   useThisOpenButton: React.PropTypes.string,
+  dialogClassName: React.PropTypes.string,
 }
 
 ModalDialog.defaultProps = {
   dialogId: "dialog" + new Date().getTime().toString(),
   title: "",
   useThisOpenButton: undefined,
+  dialogClassName: "mdl-dialog",
 }
