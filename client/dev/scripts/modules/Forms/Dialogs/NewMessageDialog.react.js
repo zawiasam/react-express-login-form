@@ -4,6 +4,38 @@ import AutoComplate from 'react-autocomplete'
 import ModalDialog from '../../Commons/Dialogs/ModalDialog.react'
 import * as FormElements from '../../Commons/FormElements.react'
 
+export default class NewMessageDialog extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = { value: 'Ma' }
+    this._dialogHandler = this._dialogHandler.bind(this);
+  }
+
+  _dialogHandler(obj) {
+    if (this.props.onClosing) {
+       this.props.onClosing(obj);
+    }
+    ReactDOM.unmountComponentAtNode(document.getElementById("dialog"))
+  }
+
+  componentDidMount() {
+    let component = this;
+    document.querySelector("#btn-new_message").addEventListener('click', function(params) {
+        ReactDOM.render( <ModalDialogMessage onClosing={component._dialogHandler} />
+          , document.getElementById("dialog"), ()=>{ componentHandler.upgradeDom() })
+    })
+  }
+
+  render() {
+    return (<div style={{display: "none"}}/>  )
+  }
+}
+
+NewMessageDialog.propTypes = {
+  onClosing: React.PropTypes.func,
+}
+
+
 function getStates() {
   return [
     { abbr: "AL", name: "Alabama"},
@@ -115,8 +147,8 @@ class ModalDialogMessage extends React.Component {
     if (action.action === 'ok'){
       action.title = this.state.title;
       action.message = this.state.message;
-      this.props.onClosing(action);
     }
+    this.props.onClosing(action);
   }
 
   render() {
@@ -147,36 +179,5 @@ class ModalDialogMessage extends React.Component {
   }
 }
 ModalDialogMessage.propTypes ={
-  onClosing: React.PropTypes.func,
-}
-
-export default class NewMessageDialog extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = { value: 'Ma' }
-    this._dialogHandler = this._dialogHandler.bind(this);
-  }
-
-  _dialogHandler(obj) {
-    if (this.props.onClosing) {
-       this.props.onClosing(obj);
-       ReactDOM.unmountComponentAtNode(document.getElementById("dialog"))
-    }
-  }
-
-  componentDidMount() {
-    let component = this;
-    document.querySelector("#btn-new_message").addEventListener('click', function(params) {
-        ReactDOM.render( <ModalDialogMessage onClosing={component._dialogHandler} />
-          , document.getElementById("dialog"), ()=>{ componentHandler.upgradeDom() })
-    })
-  }
-
-  render() {
-    return (<div style={{display: "none"}}/>  )
-  }
-}
-
-NewMessageDialog.propTypes = {
   onClosing: React.PropTypes.func,
 }
