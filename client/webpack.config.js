@@ -42,7 +42,7 @@ module.exports = {
     ]),
     new uglifyJsPlugin({
         cacheFolder: path.resolve(__dirname, 'cache/'),
-    })
+    }),
     new ExtractTextPlugin('app/css/[name].css'),
   ],
 
