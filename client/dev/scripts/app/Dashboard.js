@@ -39,8 +39,10 @@ export default class AppDashboard extends React.Component {
         <DashboardSideMenu />
         <DashboardHeader />
         <DashboardMainContent>
-          <NewMessageDialog onClosing={ _dialogHandler } />
-          <Card message={ this.state.message } />
+          <NewMessageDialog 
+            onClosing={ _dialogHandler } />
+          <Card 
+            message={ this.state.message } />
         </DashboardMainContent>
       </div>
     )
