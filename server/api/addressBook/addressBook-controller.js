@@ -1,18 +1,13 @@
-import auth from '../../commons/auth-firebase.js';
+import auth from '../../commons/addressBook-firebase.js';
 import _ from 'lodash'
 
-function firebaseAddressBook(credentials) {
-    const loginFaildMessage = 'You shell not pass!'
+function firebaseAddressBook(user) {
+    const loginFaildMessage = "Can't read AddressBook from Db"
 
     return new Promise((resolve, reject) => {
-        auth
-            .getUser(credentials.email)
-            .then((user) => {
-                if (user && user.password === credentials.password) {
-                    resolve(user);
-                } else {
-                    reject(loginFaildMessage);
-                }
+        auth.getRecipients(user.email)
+            .then((addressBook) => {
+                resolve(addressBook);
             }, (reason) => {
                 reject(loginFaildMessage);
             });
