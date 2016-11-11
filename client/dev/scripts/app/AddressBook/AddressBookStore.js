@@ -36,16 +36,6 @@ class AddressBookStore extends EventEmmiter {
   }
 
   getAddressBook(callee) {
-    store = [
-      {
-        id: "adm",
-        name: "Administrator"
-      },
-    ]
-
-    this.emmitChange();
-  }
-  _getAddressBook(callee) {
     let request = {
       userId: callee.email
     }
@@ -59,9 +49,15 @@ class AddressBookStore extends EventEmmiter {
           );
           return;
         } else {
-          loginData.authorized = true;
-          loginData.shouldRedirect = true;
-          this.emmitChange();
+          try {
+            store = JSON.parse(text);
+            this.emmitChange();
+          } catch (error) {
+            ErrorActions.reportError(
+              ErrorConstants.api.GETTING_ADDRESSBOOK,
+              "Incorrect server response (" + err + ")"
+            );
+          }
         }
       });
   }
