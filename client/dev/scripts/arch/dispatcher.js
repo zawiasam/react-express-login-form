@@ -4,18 +4,20 @@ export default class Dispatcher {
         this._callbacks = {};
     }
 
+
+/// <summary name='Action' type='Object'>my test summary</summary>
+/// <field name='type' type='String'>testid</field>
+
+    /**
+     * @typedef {Object} Action
+     * @property {string} type An action name.
+     */
     /**
      * This callback type is called `requestCallback` and is displayed as a global symbol.
      *
-     * @callback actionCallback
+     * @callback {func} actionCallback
      * @param {Action} action
      */
-
-    /**
-     * @typedef Action
-     * @property {string} type - an action name.
-     */
-
     /**
      * Takes a number and returns its square value
      *
