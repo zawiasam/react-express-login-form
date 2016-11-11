@@ -1,8 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import AutoComplate from 'react-autocomplete'
-import ModalDialog from '../../Commons/Dialogs/ModalDialog.react'
-import * as FormElements from '../../Commons/FormElements.react'
+import ModalDialog from '../../modules/Commons/Dialogs/ModalDialog.react'
+import AddressBookActions from '../AddressBook/AddressBookActions'
+import AddressBookStore from '../AddressBook/AddressBookStore'
+import LoginStore from '../Login/LoginStore'
+import * as FormElements from '../../modules/Commons/FormElements.react'
 
 export default class NewMessageDialog extends React.Component {
   constructor(props) {
@@ -35,66 +38,10 @@ NewMessageDialog.propTypes = {
   onClosing: React.PropTypes.func,
 }
 
-
-function getStates() {
-  return [
-    { abbr: "AL", name: "Alabama"},
-    { abbr: "AK", name: "Alaska"},
-    { abbr: "AZ", name: "Arizona"},
-    { abbr: "AR", name: "Arkansas"},
-    { abbr: "CA", name: "California"},
-    { abbr: "CO", name: "Colorado"},
-    { abbr: "CT", name: "Connecticut"},
-    { abbr: "DE", name: "Delaware"},
-    { abbr: "FL", name: "Florida"},
-    { abbr: "GA", name: "Georgia"},
-    { abbr: "HI", name: "Hawaii"},
-    { abbr: "ID", name: "Idaho"},
-    { abbr: "IL", name: "Illinois"},
-    { abbr: "IN", name: "Indiana"},
-    { abbr: "IA", name: "Iowa"},
-    { abbr: "KS", name: "Kansas"},
-    { abbr: "KY", name: "Kentucky"},
-    { abbr: "LA", name: "Louisiana"},
-    { abbr: "ME", name: "Maine"},
-    { abbr: "MD", name: "Maryland"},
-    { abbr: "MA", name: "Massachusetts"},
-    { abbr: "MI", name: "Michigan"},
-    { abbr: "MN", name: "Minnesota"},
-    { abbr: "MS", name: "Mississippi"},
-    { abbr: "MO", name: "Missouri"},
-    { abbr: "MT", name: "Montana"},
-    { abbr: "NE", name: "Nebraska"},
-    { abbr: "NV", name: "Nevada"},
-    { abbr: "NH", name: "New Hampshire"},
-    { abbr: "NJ", name: "New Jersey"},
-    { abbr: "NM", name: "New Mexico"},
-    { abbr: "NY", name: "New York"},
-    { abbr: "NC", name: "North Carolina"},
-    { abbr: "ND", name: "North Dakota"},
-    { abbr: "OH", name: "Ohio"},
-    { abbr: "OK", name: "Oklahoma"},
-    { abbr: "OR", name: "Oregon"},
-    { abbr: "PA", name: "Pennsylvania"},
-    { abbr: "RI", name: "Rhode Island"},
-    { abbr: "SC", name: "South Carolina"},
-    { abbr: "SD", name: "South Dakota"},
-    { abbr: "TN", name: "Tennessee"},
-    { abbr: "TX", name: "Texas"},
-    { abbr: "UT", name: "Utah"},
-    { abbr: "VT", name: "Vermont"},
-    { abbr: "VA", name: "Virginia"},
-    { abbr: "WA", name: "Washington"},
-    { abbr: "WV", name: "West Virginia"},
-    { abbr: "WI", name: "Wisconsin"},
-    { abbr: "WY", name: "Wyoming"}
-  ]
-}
-
 function matchStateToTerm (state, value) {
   return (
     state.name.toLowerCase().indexOf(value.toLowerCase()) !== -1 ||
-    state.abbr.toLowerCase().indexOf(value.toLowerCase()) !== -1
+    state.id.toLowerCase().indexOf(value.toLowerCase()) !== -1
   )
 }
 
@@ -133,12 +80,26 @@ class ModalDialogMessage extends React.Component {
     this.state = {
       title: '',
       message: '',
+      addressBookEntries: [],
     }
 
     this._onDialogClose = this._onDialogClose.bind(this);
     this._onChange = this._onChange.bind(this);
+    this._addressBookStoreChanged = this._addressBookStoreChanged.bind(this);
+    AddressBookStore.addChangeListener(this._addressBookStoreChanged);
   }
   
+  componentDidMount() {
+    const calle = LoginStore.getLoginData();
+    AddressBookActions.getAddressBookData(calle);
+  }
+
+  _addressBookStoreChanged(change) {
+    this.setState({
+      addressBookEntries: AddressBookStore.data,
+    })
+  }
+
   _onChange(args) {
     this.setState(args);
   }
@@ -161,14 +122,14 @@ class ModalDialogMessage extends React.Component {
             <AutoComplate 
               menuStyle = { styles.menuStyle }
               value={ this.state.value } 
-              inputProps={ { name: "US state", id: "states-autocomplete" } } 
-              items={ getStates() } 
+              inputProps={ { name: "recipient", id: "recipient-autocomplete" } } 
+              items={ this.state.addressBookEntries } 
               getItemValue={ (item) => item.name } 
               shouldItemRender={ matchStateToTerm }
               // sortItems={ sortStates } 
               onChange={ (event, value) => this.setState({ value }) } 
               onSelect={ value => this.setState({ value }) }
-              renderItem={ (item, isHighlighted) => ( <div style={ isHighlighted ? styles.highlightedItem : styles.item } key={ item.abbr }>
+              renderItem={ (item, isHighlighted) => ( <div style={ isHighlighted ? styles.highlightedItem : styles.item } key={ item.id }>
                                                         { item.name }
                                                       </div> ) } 
             />
@@ -178,6 +139,7 @@ class ModalDialogMessage extends React.Component {
         </ModalDialog>)
   }
 }
+
 ModalDialogMessage.propTypes ={
   onClosing: React.PropTypes.func,
 }
