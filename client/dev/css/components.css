@@ -189,3 +189,7 @@ _:-ms-input-placeholder, :root .demo-graph {
   box-sizing: border-box;
   align-items: center;
 }
+
+.mdl-dialog__new-message {
+  width: 80%;
+}

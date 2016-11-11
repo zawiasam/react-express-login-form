@@ -3,13 +3,18 @@ import Message from '../modules/Forms/Message.react'
 import DashboardSideMenu from '../modules/Forms/Dashboard/SideMenu.react'
 import DashboardMainContent from '../modules/Forms/Dashboard/MainContent.react'
 import DashboardHeader from '../modules/Forms/Dashboard/Header.react'
-import ModalDialog from '../modules/Forms/Dialogs/ModalDialog.react'
+import NewMessageDialog from './Dialogs/NewMessageDialog.react'
 import Card from '../modules/Forms/Card.react'
 import Menu from '../modules/Forms/Menu.react'
 import MessageStore from './Message/MessageStore'
 
 function _dialogHandler(obj) {
-  console.log(obj.action);
+  console.log(obj);
+}
+
+// This upgrades all upgradable components (i.e. with 'mdl-js-*' class)
+function domUpgrade(){
+  componentHandler.upgradeDom();
 }
 
 export default class AppDashboard extends React.Component {
@@ -21,12 +26,11 @@ export default class AppDashboard extends React.Component {
   }
 
   componentDidMount() {
-      componentHandler.upgradeDom();
+      domUpgrade();
   }
 
   componentDidUpdate() {
-      // This upgrades all upgradable components (i.e. with 'mdl-js-*' class)
-      componentHandler.upgradeDom();
+      domUpgrade();
   }
 
   render() {
@@ -35,12 +39,10 @@ export default class AppDashboard extends React.Component {
         <DashboardSideMenu />
         <DashboardHeader />
         <DashboardMainContent>
-          <ModalDialog onClosing={ _dialogHandler } title="Is it good to have title?">
-            <p>
-              My content
-            </p>
-          </ModalDialog>
-          <Card message={ this.state.message } />
+          <NewMessageDialog 
+            onClosing={ _dialogHandler } />
+          <Card 
+            message={ this.state.message } />
         </DashboardMainContent>
       </div>
     )

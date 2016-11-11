@@ -5,6 +5,7 @@ import auth from '../commons/auth-firebase.js';
 export default class RestrictedRoutes {
     static init(app) {
         app.use('/api/login', Internals.passThru);
+        app.use('/api/addressBook', Internals.passThru);
         app.use('/api', Internals.authUser);
 
         app.use('/app', express.static(path.join(process.cwd() + '/client/app')));

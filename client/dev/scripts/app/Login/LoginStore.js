@@ -7,7 +7,6 @@ import promisejs from 'promisejs'
 
 let loginData = {
     email: '',
-    password: '',
     userName: '',
     authorized: false,
     shouldRedirect: false,
@@ -42,7 +41,6 @@ class LoginStore extends EventEmmiter {
     loginRequest(credentials) {
         loginData.shouldRedirect = false;
         loginData.email = credentials.email;
-        loginData.password = credentials.password;
 
         promisejs
             .post('/api/login', credentials)

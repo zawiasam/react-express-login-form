@@ -3,7 +3,7 @@ import ReactRouter from 'react-router'
 
 import Redirect from '../Commons/Navigation/redirect.react'
 import UnorderedList from '../Commons/unordered-list'
-import * as Form from '../Commons/form-elements'
+import * as Form from '../Commons/FormElements.react'
 import LoginStore from '../../app/Login/LoginStore'
 import _const from './LoginForm/Const'
 
@@ -65,5 +65,5 @@ export default class LoginForm extends React.Component {
 
 LoginForm.propTypes = {
   onLoginRequest: React.PropTypes.func.isRequired,
-  routePath: React.PropTypes.string.isRequired
+  routePath: React.PropTypes.string.isRequired,
 }
