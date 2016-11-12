@@ -3,7 +3,7 @@ import Message from '../modules/Forms/Message.react'
 import DashboardSideMenu from '../modules/Forms/Dashboard/SideMenu.react'
 import DashboardMainContent from '../modules/Forms/Dashboard/MainContent.react'
 import DashboardHeader from '../modules/Forms/Dashboard/Header.react'
-import NewMessageDialog from './Dialogs/NewMessageDialog.react'
+import NewMessageWrapper from './Dialogs/NewMessageWrapper.react'
 import Card from '../modules/Forms/Card.react'
 import Menu from '../modules/Forms/Menu.react'
 import MessageStore from './Message/MessageStore'
@@ -39,7 +39,7 @@ export default class AppDashboard extends React.Component {
         <DashboardSideMenu />
         <DashboardHeader />
         <DashboardMainContent>
-          <NewMessageDialog 
+          <NewMessageWrapper 
             onClosing={ _dialogHandler } />
           <Card 
             message={ this.state.message } />

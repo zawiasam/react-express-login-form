@@ -7,74 +7,7 @@ import AddressBookStore from '../AddressBook/AddressBookStore'
 import LoginStore from '../Login/LoginStore'
 import * as FormElements from '../../modules/Commons/FormElements.react'
 
-export default class NewMessageDialog extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = { value: 'Ma' }
-    this._dialogHandler = this._dialogHandler.bind(this);
-  }
-
-  _dialogHandler(obj) {
-    if (this.props.onClosing) {
-       this.props.onClosing(obj);
-    }
-    ReactDOM.unmountComponentAtNode(document.getElementById("dialog"))
-  }
-
-  componentDidMount() {
-    let component = this;
-    document.querySelector("#btn-new_message").addEventListener('click', function(params) {
-        ReactDOM.render( <ModalDialogMessage onClosing={component._dialogHandler} />
-          , document.getElementById("dialog"), ()=>{ componentHandler.upgradeDom() })
-    })
-  }
-
-  render() {
-    return (<div style={{display: "none"}}/>  )
-  }
-}
-
-NewMessageDialog.propTypes = {
-  onClosing: React.PropTypes.func,
-}
-
-function matchStateToTerm (state, value) {
-  return (
-    state.name.toLowerCase().indexOf(value.toLowerCase()) !== -1 ||
-    state.id.toLowerCase().indexOf(value.toLowerCase()) !== -1
-  )
-}
-
-let styles = {
-  item: {
-    padding: '2px 6px',
-    cursor: 'default'
-  },
-
-  highlightedItem: {
-    color: 'white',
-    background: 'hsl(200, 50%, 50%)',
-    padding: '2px 6px',
-    cursor: 'default'
-  },
-
-  menuStyle: {
-    borderRadius: '3px',
-    boxShadow: '0 2px 12px rgba(0, 0, 0, 0.1)',
-    background: 'rgba(255, 255, 255, 0.9)',
-    padding: '2px 0',
-    fontSize: '90%',
-    position: 'fixed',
-    overflow: 'auto',
-    maxHeight: '50%',
-    zIndex: '1' },
-
-  menu: {
-    border: 'solid 1px #ccc'
-  }
-}
-
-class ModalDialogMessage extends React.Component {
+export default class NewMessage extends React.Component {
   constructor(props){
     super(props);
     this.state = {
@@ -140,6 +73,42 @@ class ModalDialogMessage extends React.Component {
   }
 }
 
-ModalDialogMessage.propTypes ={
+NewMessage.propTypes ={
   onClosing: React.PropTypes.func,
+}
+
+function matchStateToTerm (state, value) {
+  return (
+    state.name.toLowerCase().indexOf(value.toLowerCase()) !== -1 ||
+    state.id.toLowerCase().indexOf(value.toLowerCase()) !== -1
+  )
+}
+
+let styles = {
+  item: {
+    padding: '2px 6px',
+    cursor: 'default'
+  },
+
+  highlightedItem: {
+    color: 'white',
+    background: 'hsl(200, 50%, 50%)',
+    padding: '2px 6px',
+    cursor: 'default'
+  },
+
+  menuStyle: {
+    borderRadius: '3px',
+    boxShadow: '0 2px 12px rgba(0, 0, 0, 0.1)',
+    background: 'rgba(255, 255, 255, 0.9)',
+    padding: '2px 0',
+    fontSize: '90%',
+    position: 'fixed',
+    overflow: 'auto',
+    maxHeight: '50%',
+    zIndex: '1' },
+
+  menu: {
+    border: 'solid 1px #ccc'
+  }
 }
