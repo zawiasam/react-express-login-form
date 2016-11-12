@@ -19,6 +19,9 @@ function fakeAddressBook(credentials) {
         resolve([{
             id: "adm",
             name: "Administrator"
+        },{
+            id: "albr6",
+            name: "adm 2"
         }]);
     });
 }
