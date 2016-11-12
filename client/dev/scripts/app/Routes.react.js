@@ -6,6 +6,7 @@ import AppLogin from './Login.react'
 import AppDashboard from './Dashboard.react'
 import Inbox from './Inbox.react'
 import Home from './Home.react'
+import Settlement from './Settlement.react'
 import { RoutePath } from './Index/IndexConstants'
 
 const loginElement = document.getElementById("login");
@@ -18,6 +19,7 @@ render(
             <IndexRoute component={Inbox} />
             <Route path={RoutePath.Inbox} component={Inbox} />
             <Route path={RoutePath.Home} component={Home} />
+            <Route path={RoutePath.Settlement} component={Settlement} />
         </Route>
     </Route>
 </Router>, loginElement);

@@ -10,15 +10,23 @@ const styles = {
 const alarmPhoneNumbers = [
   {
     label: 'Pogotowie ratunkowe',
-    value: '999 / 112'
+    value: '999 / 112',
   },
   {
     label: 'Straż pożarna',
-    value: '998 / 112'
+    value: '998 / 112',
   },
   {
     label: 'Policja',
-    value: '997 / 112'
+    value: '997 / 112',
+  },
+  {
+    label: 'Pogotowie Gazowe',
+    value: ['992', '426-745-523'],
+  },
+  {
+    label: 'Policja',
+    value: '997 / 112',
   },
 ]
 

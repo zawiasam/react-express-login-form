@@ -4,6 +4,7 @@ const IndexConstants = {
     Panel: '/Panel',
     Inbox: '/Inbox',
     Home: '/Home',
+    Settlement: '/Settlement',
   }
 }
 
@@ -28,6 +29,12 @@ const RoutesConfig = {
     label: "Skrzynka odbiocza",
     materialIconName: "inbox"
   },
+  Settlement: {
+    path: IndexConstants.Routes.Settlement,
+    scopes: ["router", "menu"],
+    label: "Rozliczenie",
+    materialIconName: "attach_money"
+  },  
 }
 
 function getMenuConfiguration() {
