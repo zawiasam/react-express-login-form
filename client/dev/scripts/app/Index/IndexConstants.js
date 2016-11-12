@@ -3,6 +3,7 @@ const IndexConstants = {
     Login: '/Login',
     Panel: '/Panel',
     Inbox: '/Inbox',
+    Home: '/Home',
   }
 }
 
@@ -14,6 +15,12 @@ const RoutesConfig = {
   Panel: {
     path: IndexConstants.Routes.Panel,
     scopes: ["router"],
+  },
+  Home: {
+    path: IndexConstants.Routes.Home,
+    scopes: ["router", "menu"],
+    label: "Strona domowa",
+    materialIconName: "home"
   },
   Inbox: {
     path: IndexConstants.Routes.Inbox,
