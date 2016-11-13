@@ -4,7 +4,7 @@ import NewMessageWrapper from './Dialogs/NewMessageWrapper.react'
 import Card from '../modules/Forms/Card.react'
 
 function _dialogHandler(obj) {
-  console.log(obj);
+  MessageStore.sendMessage(obj);
 }
 
 export default class Inbox extends React.Component {
