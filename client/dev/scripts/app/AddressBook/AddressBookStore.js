@@ -44,7 +44,7 @@ class AddressBookStore extends EventEmmiter {
       .then((err, text, xhr) => {
         if (err) {
           ErrorActions.reportError(
-            ErrorConstants.api.GETTING_ADDRESSBOOK,
+            ErrorConstants.api.GET_ADDRESSBOOK,
             xhr.status
           );
           return;
@@ -54,7 +54,7 @@ class AddressBookStore extends EventEmmiter {
             this.emmitChange();
           } catch (error) {
             ErrorActions.reportError(
-              ErrorConstants.api.GETTING_ADDRESSBOOK,
+              ErrorConstants.api.GET_ADDRESSBOOK,
               "Incorrect server response (" + err + ")"
             );
           }
