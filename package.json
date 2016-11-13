@@ -28,7 +28,9 @@
     "firebase": "^3.4.1",
     "helmet": "^2.3.0",
     "jest": "^16.0.1",
-    "jest-cli": "^16.0.1"
+    "jest-cli": "^16.0.1",
+    "moment": "^2.16.0",
+    "winston": "^2.3.0"
   },
   "devDependencies": {
     "babel-core": "^6.17.0",

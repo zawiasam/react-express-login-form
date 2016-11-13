@@ -3,6 +3,7 @@ import React from 'react'
 import LoginForm from '../modules/Forms/LoginForm.react'
 import LoginStore from './Login/LoginStore'
 import LoginActions from './Login/LoginActions'
+import { RoutePath } from './Index/IndexConstants'
 
 function _loginRequest(value) {
     LoginActions.doLoginRequest(value);
@@ -18,6 +19,6 @@ export default class AppLogin extends React.Component {
     }
 
     render() {
-        return (<LoginForm onLoginRequest={ _loginRequest } routePath="/dashboard" />)
+        return (<LoginForm onLoginRequest={ _loginRequest } routePath={ RoutePath.Panel } />)
     }
 }

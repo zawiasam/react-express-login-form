@@ -1,6 +1,7 @@
 const ErrorConstants = {
   api : {
-    GETTING_ADDRESSBOOK: "api:error_getting_addressbook",
+    GET_ADDRESSBOOK: "api:error_getting_addressbook",
+    POST_MESSAGE: "api:error_post_message",
   },
   validation: {
 
