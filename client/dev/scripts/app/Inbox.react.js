@@ -15,10 +15,13 @@ export default class Inbox extends React.Component {
     }
   }
   render() {
+    const message = this.state.message;
     return (
       <div style={ { width: "100%" } }>
         <NewMessageWrapper onClosing={ _dialogHandler } />
-        <Card message={ this.state.message } />
+        <Card title={ message.messageTitle }>
+          {message.messageBody}
+        </Card>
       </div>
     )
   }

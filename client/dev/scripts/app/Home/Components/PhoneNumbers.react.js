@@ -62,21 +62,15 @@ export default class PhoneNumbers extends React.Component {
     })
 
     return (
-      <div className="mdl-grid">
-        <div className="mdl-cell mdl-cell--12-col">
-          <div style={ styles.sectionName }>
-            { this.props.sectionName }
-          </div>
-        </div>
-        <div className="mdl-cell mdl-cell--12-col">
-          { phoneNumbers }
-        </div>
+
+      <div className="mdl-cell mdl-cell--12-col">
+        { phoneNumbers }
       </div>
+
     )
   }
 }
 
 PhoneNumbers.propTypes = {
-  sectionName: React.PropTypes.string,
   sectionElements: React.PropTypes.array,
 }

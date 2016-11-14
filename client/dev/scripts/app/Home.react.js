@@ -1,4 +1,5 @@
 import React from 'react';
+import Card from '../modules/Forms/Card.react'
 import PhoneNumbers from './Home/Components/PhoneNumbers.react'
 
 const styles = {
@@ -46,7 +47,7 @@ const technicalHelpPhoneNumbers = [
   {
     label: 'Monitoring',
     value: '426-391-888'
-  },  {
+  }, {
     label: 'PKP Energetyka',
     value: ['697-040-240', '422-055-375']
   },
@@ -60,17 +61,21 @@ export default class Information extends React.Component {
   render() {
     return (
       <div className="mdl-grid mdl-grid--no-spacing" style={ styles.fullPageWidth }>
-        <div className="mdl-cell mdl-cell--6-col">
+        <div className="mdl-cell mdl-cell--9-col">
           <div className="mdl-grid">
             <div className="mdl-cell mdl-cell--6-col">
-              <PhoneNumbers sectionName="Numery alarmowe" sectionElements={ alarmPhoneNumbers } />
+              <Card title="Numery alarmowe" footer={ (<div></div>)}>
+                <PhoneNumbers sectionElements={ alarmPhoneNumbers } />
+              </Card>
             </div>
             <div className="mdl-cell mdl-cell--6-col">
-              <PhoneNumbers sectionName="Pomoc techniczna" sectionElements={ technicalHelpPhoneNumbers } />
+              <Card title="Pomoc techniczna" footer={ (<div></div>)}>
+                <PhoneNumbers sectionElements={ technicalHelpPhoneNumbers } />
+              </Card>
             </div>
           </div>
         </div>
-        <div className="mdl-cell mdl-cell--6-col">
+        <div className="mdl-cell mdl-cell--3-col">
           <div className="mdl-grid">1</div>
         </div>
       </div>
