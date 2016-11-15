@@ -46,7 +46,7 @@ function getMenuConfiguration() {
 
   for (let cfg in RoutesConfig) {
     currentCfg = RoutesConfig[cfg];
-    containsMenuScope = !!(currentCfg.scopes.findIndex((item) => { return item === "menu"}) + 1)
+    containsMenuScope = !!(currentCfg.scopes.indexOf("menu") + 1)
     isForMenu = containsMenuScope;
     
     currentCfg.name = cfg;
