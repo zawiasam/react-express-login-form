@@ -1,7 +1,7 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
-import AutoComplate from 'react-autocomplete'
-import ModalDialog from '../../modules/Commons/Dialogs/ModalDialog.react'
+import { Link } from 'react-router'
+import Select2 from 'react-select2-wrapper'
+import 'react-select2-wrapper/css/select2.min.css'
 import AddressBookActions from '../AddressBook/AddressBookActions'
 import AddressBookStore from '../AddressBook/AddressBookStore'
 import LoginStore from '../Login/LoginStore'
@@ -46,104 +46,40 @@ export default class NewMessage extends React.Component {
   }
 
   render() {
-    return (<ModalDialog onClosing={ this._onDialogClose } title="Nowa wiadomość" useThisOpenButton="btn-new_message" dialogClassName="mdl-dialog mdl-dialog__new-message">
-              <form style={{textAlign: "center"}}>
-                <ul className="demo-list-item mdl-list" style={{display: "inline-block"}}>
+    return (<div style={ { width: "100%", textAlign: "center" } }>
+              <form>
+                <ul className="demo-list-item mdl-list" style={ { display: "inline-block", width: "80%" } }>
                   <li className="mdl-list__item">
-                    <span className="mdl-list__item-primary-content">
-                        <AutoComplate
-                  menuStyle = { styles.menuStyle }
-                  value={ this.state.value }
-                  inputProps={ { name: "recipient", id: "recipient-autocomplete", style: styles.autocomplete, placeholder: "Adresat" } }
-                  items={ this.state.addressBookEntries }
-                  getItemValue={ (item) => item.name }
-                  shouldItemRender={ matchStateToTerm }
-                  // sortItems={ sortStates }
-                  onChange={ (event, value) => this.setState({
-                               value
-                             }) }
-                  onSelect={ value => this.setState({
-                               value
-                             }) }
-                  renderItem={ (item, isHighlighted) => ( <div style={ isHighlighted ? styles.highlightedItem : styles.item } key={ item.id }>
-                                                            { item.name }
-                                                          </div> ) }
-                  />
-                </span>
+                    <Select2 multiple={ true } data={ this.state.addressBookEntries } options={ { placeholder: 'wybierz adresata', } } style={ { width: "100%" } } />
                   </li>
                   <li className="mdl-list__item">
-                    <span className="mdl-list__item-primary-content">
-                        <FormElements.InputText id="title" onChange={ this._onChange } label={ 'Tytuł wiadomości' } />
-                </span>
+                    <div className="mdl-list__item-primary-content">
+                      <FormElements.InputText id="title" onChange={ this._onChange } label={ 'Tytuł wiadomości' } style={ { width: "100%" } } />
+                    </div>
                   </li>
                   <li className="mdl-list__item">
-                    <span className="mdl-list__item-primary-content">
-                        <FormElements.InputTextArea id="message" onChange={ this._onChange } label={ 'Treść wiadomości' } />
-                </span>
+                    <div className="mdl-list__item-primary-content">
+                      <FormElements.InputTextArea id="message" onChange={ this._onChange } label={ 'Treść wiadomości' } style={ { width: "100%" } } />
+                    </div>
                   </li>
                 </ul>
+                <div className="mdl-grid">
+                  <div className="mdl-cell mdl-cell--2-col">
+                    <Link to="/Inbox">
+                    <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                      Wyślij
+                    </button>
+                    </Link>
+                  </div>
+                  <div className="mdl-cell mdl-cell--2-col">
+                    <Link to="/Inbox">
+                    <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+                      Anuluj
+                    </button>
+                    </Link>
+                  </div>
+                </div>
               </form>
-            </ModalDialog>)
-  }
-}
-
-NewMessage.propTypes = {
-  onClosing: React.PropTypes.func,
-}
-
-function matchStateToTerm(state, value) {
-  return (
-    state.name.toLowerCase().indexOf(value.toLowerCase()) !== -1 ||
-    state.id.toLowerCase().indexOf(value.toLowerCase()) !== -1
-  )
-}
-
-let styles = {
-  item: {
-    padding: '2px 6px',
-    cursor: 'default'
-  },
-
-  highlightedItem: {
-    color: 'white',
-    background: 'hsl(200, 50%, 50%)',
-    padding: '2px 6px',
-    cursor: 'default'
-  },
-
-  autocomplete: {
-    fontSize: "14px",
-    boxSizing: "border-box",
-    border: "none",
-    boxShadow: "none",
-    outline: "none",
-    background: "transparent",
-    width: "100%",
-    padding: "0 15px",
-    lineHeight: "40px",
-    height: "48px",
-  },
-
-  menuStyle: {
-    borderRadius: '3px',
-    boxShadow: '0 2px 12px rgba(0, 0, 0, 0.1)',
-    background: 'rgba(255, 255, 255, 0.9)',
-    padding: '2px 0',
-    fontSize: '90%',
-    position: 'fixed',
-    overflow: 'auto',
-    maxHeight: '50%',
-
-    // boxSizing: "border-box",
-    // border: "none",
-    // outline: "none",
-    // lineHeight: "30px",
-    // height: "48px",
-
-    zIndex: '1'
-  },
-
-  menu: {
-    border: 'solid 1px #ccc'
+            </div>)
   }
 }
