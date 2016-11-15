@@ -12,7 +12,7 @@ export default class InputTextArea extends React.Component {
 
     render() {
         return (
-          <div className="mdl-textfield mdl-js-textfield">
+          <div className="mdl-textfield mdl-js-textfield" style={this.props.style}>
             <textarea className="mdl-textfield__input" type="text" rows={ this.props.initialRowsCount } id={ this.props.id } onChange={ this._changed } onKeyDown={ this._keyDown }></textarea>
             <label className="mdl-textfield__label" htmlFor={ this.props.id }>Treść wiadomości ...</label>
           </div>

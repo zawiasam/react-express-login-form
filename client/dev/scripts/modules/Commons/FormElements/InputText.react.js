@@ -12,7 +12,7 @@ export default class InputText extends React.Component {
 
     render() {
         return (
-            <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style={this.props.style}>
               <input className="mdl-textfield__input" type="text" id={ this.props.id } onChange={ this._changed } onKeyDown={ this._keyDown }></input>
               <label className="mdl-textfield__label" htmlFor={ this.props.id }>
                 { this.props.label }

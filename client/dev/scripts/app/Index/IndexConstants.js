@@ -3,6 +3,7 @@ const IndexConstants = {
     Login: '/Login',
     Panel: '/Panel',
     Inbox: '/Inbox',
+    InboxNewMessage: '/Inbox/NewMessage',
     Home: '/Home',
     Settlement: '/Settlement',
   }
@@ -34,7 +35,12 @@ const RoutesConfig = {
     scopes: ["router", "menu"],
     label: "Rozliczenie",
     materialIconName: "attach_money"
-  },  
+  },
+  InboxNewMessage: {
+    path: IndexConstants.NewMessage,
+    scopes: ["router"],
+    label: "Nowa wiadomość",
+  }  
 }
 
 function getMenuConfiguration() {

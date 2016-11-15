@@ -18,10 +18,10 @@ function fakeAddressBook(credentials) {
     return new Promise((resolve, reject) => {
         resolve([{
             id: "adm",
-            name: "Administrator"
+            text: "Administrator"
         },{
             id: "albr6",
-            name: "adm 2"
+            text: "adm 2"
         }]);
     });
 }
