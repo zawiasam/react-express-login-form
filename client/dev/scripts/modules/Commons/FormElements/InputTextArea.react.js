@@ -3,7 +3,7 @@ import React from 'react'
 const emptyFunction = () => {
 };
 
-export default class InputText extends React.Component {
+export default class InputTextArea extends React.Component {
     constructor(props) {
         super(props);
         this._changed = this._changed.bind(this);
@@ -12,19 +12,16 @@ export default class InputText extends React.Component {
 
     render() {
         return (
-            <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input className="mdl-textfield__input" type="text" id={ this.props.id } onChange={ this._changed } onKeyDown={ this._keyDown }></input>
-              <label className="mdl-textfield__label" htmlFor={ this.props.id }>
-                { this.props.label }
-              </label>
-            </div>
+          <div className="mdl-textfield mdl-js-textfield">
+            <textarea className="mdl-textfield__input" type="text" rows={ this.props.initialRowsCount } id={ this.props.id } onChange={ this._changed } onKeyDown={ this._keyDown }></textarea>
+            <label className="mdl-textfield__label" htmlFor={ this.props.id }>Treść wiadomości ...</label>
+          </div>
             );
     }
 
     _changed(event) {
         let args = {}
         args[this.props.id] = event.target.value;
-        
         this
             .props
             .onChange(args)
@@ -35,12 +32,14 @@ export default class InputText extends React.Component {
     }
 }
 
-InputText.propTypes = {
+InputTextArea.propTypes = {
+    initialRowsCount: React.PropTypes.number,
     onChange: React.PropTypes.func,
     onKeyDown: React.PropTypes.func,  
 }
 
-InputText.defaultProps = {
+InputTextArea.defaultProps = {
+    initialRowsCount: 3,
     onChange: emptyFunction,
     onKeyDown: emptyFunction,
 };

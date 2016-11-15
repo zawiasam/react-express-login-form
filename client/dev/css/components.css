@@ -1,6 +1,17 @@
 .demo-card-square.mdl-card {
-  width: 640px;
   height: 320px;
+  width: 100%;
+  margin: 2px;  
+}
+
+#btn-new_message {
+  position: fixed;
+  display: block;
+  right: 0;
+  bottom: 0;
+  margin-right: 55px;
+  margin-bottom: 35px;
+  z-index: 900;
 }
 
 /**
@@ -177,4 +188,8 @@ _:-ms-input-placeholder, :root .demo-graph {
   display: flex;
   box-sizing: border-box;
   align-items: center;
+}
+
+.mdl-dialog__new-message {
+  width: 80%;
 }

@@ -2,9 +2,10 @@ import React from 'react'
 import ReactRouter from 'react-router'
 
 import Redirect from '../Commons/Navigation/redirect.react'
-import UnsortedList from '../Commons/unsorted-list'
-import * as Form from '../Commons/form-elements'
+import UnorderedList from '../Commons/unordered-list'
+import * as Form from '../Commons/FormElements.react'
 import LoginStore from '../../app/Login/LoginStore'
+import _const from './LoginForm/Const'
 
 export default class LoginForm extends React.Component {
   constructor(props) {
@@ -22,20 +23,21 @@ export default class LoginForm extends React.Component {
 
   render() {
     let listElements = [
-      (<Form.InputText id={ 'email' } label={ 'e-mail' } onChange={ this._fieldValueChanged } onKeyDown={ this._onKeyDown } />),
-      (<Form.InputPassword id={ 'password' } label={ 'hasło' } onChange={ this._fieldValueChanged } onKeyDown={ this._onKeyDown } />),
-      (<Form.Button id={ 'loginBtn' } label={ 'Zaloguj się' } onClick={ this._loginRequest } />)
+      (<Form.InputText id={ _const.LOGIN_FLD_ID } label={ 'e-mail' } onChange={ this._fieldValueChanged } onKeyDown={ this._onKeyDown } />),
+      (<Form.InputPassword id={ _const.PASSWORD_FLD_ID } label={ 'hasło' } onChange={ this._fieldValueChanged } onKeyDown={ this._onKeyDown } />),
+      (<Form.Button id={ _const.LOGIN_BTN_ID } label={ 'Zaloguj się' } onClick={ this._loginRequest } />)
     ];
 
-    if (this.state.authorized) {
+    if (this.state.authorized && !!this.state.shouldRedirect) {
+      LoginStore.setShouldRedirect(false);
       return(<Redirect location={ this.props.routePath } />)
     }
-
+    
     return (
       <form>
         <div className="mdl-layout">
           <div className="mdl-layout__content">
-            <UnsortedList items={listElements}/>
+            <UnorderedList items={listElements}/>
           </div>
         </div>
       </form>
@@ -63,5 +65,5 @@ export default class LoginForm extends React.Component {
 
 LoginForm.propTypes = {
   onLoginRequest: React.PropTypes.func.isRequired,
-  routePath: React.PropTypes.string.isRequired
+  routePath: React.PropTypes.string.isRequired,
 }
