@@ -30,14 +30,14 @@ export default class LoginForm extends React.Component {
 
     if (this.state.authorized && !!this.state.shouldRedirect) {
       LoginStore.setShouldRedirect(false);
-      return(<Redirect location={ this.props.routePath } />)
+      return (<Redirect location={ this.props.routePath } />)
     }
-    
+
     return (
-      <form>
+      <form style={ this.props.style }>
         <div className="mdl-layout">
           <div className="mdl-layout__content">
-            <UnorderedList items={listElements}/>
+            <UnorderedList items={ listElements } />
           </div>
         </div>
       </form>

@@ -19,6 +19,10 @@ export default class AppLogin extends React.Component {
     }
 
     render() {
-        return (<LoginForm onLoginRequest={ _loginRequest } routePath={ RoutePath.Panel } />)
+        return (
+            <div style={ { textAlign: "center" } }>
+              <LoginForm onLoginRequest={ _loginRequest } routePath={ RoutePath.Panel } style={ { display: "inline-block" } } />
+            </div>
+        )
     }
 }

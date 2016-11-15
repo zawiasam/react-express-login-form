@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router'
 import Select2 from 'react-select2-wrapper'
+import 'react-select2-wrapper/css/select2.min.css'
 import AddressBookActions from '../AddressBook/AddressBookActions'
 import AddressBookStore from '../AddressBook/AddressBookStore'
 import LoginStore from '../Login/LoginStore'
