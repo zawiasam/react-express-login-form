@@ -21,16 +21,16 @@ export default class Card extends React.Component {
         <a className="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">odpowiedz</a>
       </div>
     ];
-
+    let style = this.props.styles;
     return (
-      <div className="demo-card-square mdl-card mdl-shadow--2dp">
-        <div className="mdl-card__title">
+      <div className="demo-card-square mdl-card mdl-shadow--2dp" style={ style.card }>
+        <div className="mdl-card__title" style={ style.title }>
           <h2 className="mdl-card__title-text">{ this.props.title }</h2>
         </div>
-        <div className="mdl-card__supporting-text mdl-card--expand">
+        <div className="mdl-card__supporting-text mdl-card--expand" style={ style.content }>
           { this.props.children || this.props.content }
         </div>
-        <div className="mdl-card__actions mdl-card--border mdl-grid">
+        <div className="mdl-card__actions mdl-card--border mdl-grid" style={ style.footer }>
           { btns }
         </div>
       </div>
@@ -41,4 +41,9 @@ export default class Card extends React.Component {
 Card.propTypes = {
   title: React.PropTypes.any,
   content: React.PropTypes.any,
+  styles: React.PropTypes.object,
+}
+
+Card.defaultProps = {
+  styles: {}  
 }
