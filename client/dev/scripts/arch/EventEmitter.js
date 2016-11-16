@@ -20,6 +20,6 @@ export default class EventEmitter {
 
     removeListener(eventName, listener) {
         let listeners = this._events[eventName] || [];
-        listeners.splice(listener.indexOf(listener), 1);
+        listeners.splice(listeners.indexOf(listener), 1);
     }
 }

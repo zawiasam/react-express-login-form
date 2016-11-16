@@ -7,17 +7,17 @@ export default class Card extends React.Component {
 
   render() {
     const btns = this.props.footer || [
-      <div className="mdl-cell mdl-cell--2-col">
+      <div className="mdl-cell mdl-cell--2-col" key="show">
         <a className="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">wyświetl</a>
       </div>,
 
-      <div className="mdl-cell mdl-cell--2-col">
+      <div className="mdl-cell mdl-cell--2-col" key="archive">
         <a className="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">archiwizuj</a>
       </div>,
 
-      <div className="mdl-layout-spacer"></div>,
+      <div className="mdl-layout-spacer" key="spacer"></div>,
 
-      <div className="mdl-cell mdl-cell--2-col">
+      <div className="mdl-cell mdl-cell--2-col" key="replay">
         <a className="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">odpowiedz</a>
       </div>
     ];

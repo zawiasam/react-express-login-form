@@ -15,15 +15,10 @@ class AddressBookStore extends EventEmmiter {
   constructor() {
     super();
 
-    this.emmitChange = this
-      .emmitChange
-      .bind(this);
-    this.addChangeListener = this
-      .addChangeListener
-      .bind(this);
-    this.getAddressBook = this
-      .getAddressBook
-      .bind(this);
+    this.emmitChange = this.emmitChange.bind(this);
+    this.addChangeListener = this.addChangeListener.bind(this);
+    this.removeChangeListener = this.removeChangeListener.bind(this);
+    this.getAddressBook = this.getAddressBook.bind(this);
 
     store = {};
     AddressBookDispatcher.register((action) => {
@@ -68,6 +63,10 @@ class AddressBookStore extends EventEmmiter {
 
   addChangeListener(listener) {
     this.addListener('change', listener);
+  }
+
+  removeChangeListener(listener) {
+    this.removeListener('change', listener);
   }
 }
 
