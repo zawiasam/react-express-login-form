@@ -4,6 +4,7 @@ import LoginDispatcher from './LoginDispatcher'
 import LoginConstants from './LoginConstants'
 
 import promisejs from 'promisejs'
+import _ from 'lodash'
 
 let loginData = {
     email: '',
@@ -43,7 +44,7 @@ class LoginStore extends EventEmmiter {
         loginData.email = credentials.email;
 
         promisejs.promise
-            .post('/api/login', credentials)
+            .post('/api/login', _.pick(credentials, ["email", "password"]))
             .then((err, text, xhr) => {
                 if (err) {
                     console.log('Error: ' + xhr.status);

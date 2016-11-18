@@ -1,4 +1,7 @@
-import {mount } from 'enzyme';
+import sinon from 'sinon'
+import expect from 'expect'
+
+import {mount} from 'enzyme';
 
 import LoginForm from '../dev/scripts/modules/Forms/LoginForm.react'
 import formConst from '../dev/scripts/modules/Forms/LoginForm/Const'
@@ -10,7 +13,7 @@ describe("the LoginForm", function loginFormDescribe() {
         let loginForm;
 
         beforeEach(function(){
-            mockDoLoginRequest = jest.fn(); 
+            mockDoLoginRequest = sinon.stub(); 
             loginForm = mount(<LoginForm onLoginRequest={mockDoLoginRequest} routePath="/" />);
         });
 
