@@ -47,15 +47,16 @@ module.exports = {
   ],
 
   module: {
-    loaders: [
-      {
-        cacheable: true,
+  loaders: [
+      { test: /node_modules/, 
+        loader: "imports-loader?define=>undefined" 
+      },
+      { cacheable: true,
         test: /\.js.{0,1}$/,
         exclude: /node_modules/,
         loader: 'babel-loader?presets[]=es2015&presets[]=react'
       },
-      {
-        test: /\.css$/,
+      { test: /\.css$/,
         loader: ExtractTextPlugin.extract('style-loader', 'css-loader'),
       },
     ]

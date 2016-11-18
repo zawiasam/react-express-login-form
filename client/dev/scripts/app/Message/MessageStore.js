@@ -21,7 +21,7 @@ class MessageStore extends EventEmmiter {
   }
 
   sendMessage(message) {
-    promisejs.post("/api/message", message).then((err, text, xhr) => {
+    promisejs.promise.post("/api/message", message).then((err, text, xhr) => {
       if (err) {
         ErrorActions.reportError(
           ErrorConstants.api.POST_MESSAGE,

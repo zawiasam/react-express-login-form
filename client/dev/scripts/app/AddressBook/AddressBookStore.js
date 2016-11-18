@@ -34,7 +34,7 @@ class AddressBookStore extends EventEmmiter {
     let request = {
       userId: callee.email
     }
-    promisejs
+    promisejs.promise
       .get('/api/addressBook', callee)
       .then((err, text, xhr) => {
         if (err) {

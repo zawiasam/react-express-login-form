@@ -42,7 +42,7 @@ class LoginStore extends EventEmmiter {
         loginData.shouldRedirect = false;
         loginData.email = credentials.email;
 
-        promisejs
+        promisejs.promise
             .post('/api/login', credentials)
             .then((err, text, xhr) => {
                 if (err) {
