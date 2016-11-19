@@ -3,18 +3,18 @@ import expect from 'expect'
 
 import {mount} from 'enzyme';
 
-import LoginForm from '../dev/scripts/modules/Forms/LoginForm.react'
-import formConst from '../dev/scripts/modules/Forms/LoginForm/Const'
+import LoginForm from './LoginForm.react'
+import LoginStore from '../../app/Login/LoginStore'
+import formConst from './LoginForm/Const'
 import React from 'react'
 
 describe("the LoginForm", function loginFormDescribe() {
     describe("action doLoginRequest", function dispacedParams(){
-        let mockDoLoginRequest; 
         let loginForm;
 
         beforeEach(function(){
-            mockDoLoginRequest = sinon.stub(); 
-            loginForm = mount(<LoginForm onLoginRequest={mockDoLoginRequest} routePath="/" />);
+            LoginStore.setShouldRedirect(false);
+            loginForm = mount(<LoginForm onLoginRequest={()=>{}} routePath="/" />);
         });
 
         it("should contains BUTTON Login", function itShouldHaveLoginButton(){

@@ -46,7 +46,7 @@ class LoginStore extends EventEmmiter {
         promisejs.promise
             .post('/api/login', _.pick(credentials, ["email", "password"]))
             .then((err, text, xhr) => {
-                if (err) {
+                if (err || xhr.status !== 200) {
                     console.log('Error: ' + xhr.status);
                     loginData.authorized = false;
                     return;
