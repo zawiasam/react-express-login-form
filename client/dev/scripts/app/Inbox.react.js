@@ -20,7 +20,7 @@ export default class Inbox extends React.Component {
     const message = this.state.message;
     return (
       <div style={ { width: "100%" } }>
-        <Link to={this.props.newMessageLink}>
+        <Link to={ this.props.newMessageLink }>
         <button id="btn-new_message" className="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
           <i className="material-icons">add</i>
         </button>

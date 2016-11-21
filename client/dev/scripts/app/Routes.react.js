@@ -17,7 +17,7 @@ render(
         <IndexRedirect to={ RoutePath.Login } />
         <Route path={ RoutePath.Login } component={ AppLogin } />
         <Route path={ RoutePath.Panel } component={ AppDashboard }>
-          <IndexRoute component={ Inbox } />
+          <IndexRoute component={ () => (<Inbox newMessageLink={ RoutePath.InboxNewMessage } />) } />
           <Route path={ RoutePath.Inbox } component={ () => (<Inbox newMessageLink={ RoutePath.InboxNewMessage } />) } />
           <Route path={ RoutePath.InboxNewMessage } component={ NewMessage } />
           <Route path={ RoutePath.Home } component={ Home } />

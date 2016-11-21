@@ -4,6 +4,7 @@ import LoginDispatcher from './LoginDispatcher'
 import LoginConstants from './LoginConstants'
 
 import promisejs from 'promisejs'
+import _ from 'lodash'
 
 let loginData = {
     email: '',
@@ -42,10 +43,10 @@ class LoginStore extends EventEmmiter {
         loginData.shouldRedirect = false;
         loginData.email = credentials.email;
 
-        promisejs
-            .post('/api/login', credentials)
+        promisejs.promise
+            .post('/api/login', _.pick(credentials, ["email", "password"]))
             .then((err, text, xhr) => {
-                if (err) {
+                if (err || xhr.status !== 200) {
                     console.log('Error: ' + xhr.status);
                     loginData.authorized = false;
                     return;

@@ -1,7 +1,7 @@
-const _const =   {
+const loginFormConst =   {
     LOGIN_BTN_ID: 'loginBtn',
     PASSWORD_FLD_ID: 'password',
     LOGIN_FLD_ID: 'email',
 }
 
-export default _const;
+export default loginFormConst;

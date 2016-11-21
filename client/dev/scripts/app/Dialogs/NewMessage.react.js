@@ -13,7 +13,7 @@ export default class NewMessage extends React.Component {
     this.state = {
       title: '',
       message: '',
-      addressBookEntries: [],
+      receivers: this.props.receivers,
     }
 
     this._onDialogClose = this._onDialogClose.bind(this);
@@ -25,6 +25,10 @@ export default class NewMessage extends React.Component {
   componentDidMount() {
     const calle = LoginStore.getLoginData();
     AddressBookActions.getAddressBookData(calle);
+  }
+
+  componentWillUnmount() {
+    AddressBookStore.removeChangeListener(this._addressBookStoreChanged);
   }
 
   _addressBookStoreChanged(change) {
@@ -50,7 +54,8 @@ export default class NewMessage extends React.Component {
               <form>
                 <ul className="demo-list-item mdl-list" style={ { display: "inline-block", width: "80%" } }>
                   <li className="mdl-list__item">
-                    <Select2 multiple={ true } data={ this.state.addressBookEntries } options={ { placeholder: 'wybierz adresata', } } style={ { width: "100%" } } />
+                    <Select2 multiple={ true } data={ this.state.addressBookEntries } value={ this.state.receivers } options={ { placeholder: 'wybierz adresata', } } style={ { width: "100%" } } 
+                    onChange={ (event) => {let opts = event.target.selectedOptions; let values = []; for (var i=0; i<opts.length; i++) {values.push(opts[i].value);}; this._onChange( {receivers: values})} } />
                   </li>
                   <li className="mdl-list__item">
                     <div className="mdl-list__item-primary-content">

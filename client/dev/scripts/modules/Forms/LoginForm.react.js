@@ -5,7 +5,8 @@ import Redirect from '../Commons/Navigation/redirect.react'
 import UnorderedList from '../Commons/unordered-list'
 import * as Form from '../Commons/FormElements.react'
 import LoginStore from '../../app/Login/LoginStore'
-import _const from './LoginForm/Const'
+import loginFormConst from './LoginForm/Const'
+import _ from 'lodash'
 
 export default class LoginForm extends React.Component {
   constructor(props) {
@@ -23,9 +24,9 @@ export default class LoginForm extends React.Component {
 
   render() {
     let listElements = [
-      (<Form.InputText id={ _const.LOGIN_FLD_ID } label={ 'e-mail' } onChange={ this._fieldValueChanged } onKeyDown={ this._onKeyDown } />),
-      (<Form.InputPassword id={ _const.PASSWORD_FLD_ID } label={ 'hasło' } onChange={ this._fieldValueChanged } onKeyDown={ this._onKeyDown } />),
-      (<Form.Button id={ _const.LOGIN_BTN_ID } label={ 'Zaloguj się' } onClick={ this._loginRequest } />)
+      (<Form.InputText id={ loginFormConst.LOGIN_FLD_ID } label={ 'e-mail' } onChange={ this._fieldValueChanged } onKeyDown={ this._onKeyDown } />),
+      (<Form.InputPassword id={ loginFormConst.PASSWORD_FLD_ID } label={ 'hasło' } onChange={ this._fieldValueChanged } onKeyDown={ this._onKeyDown } />),
+      (<Form.Button id={ loginFormConst.LOGIN_BTN_ID } label={ 'Zaloguj się' } onClick={ this._loginRequest } />)
     ];
 
     if (this.state.authorized && !!this.state.shouldRedirect) {
@@ -55,7 +56,7 @@ export default class LoginForm extends React.Component {
   }
 
   _loginRequest() {
-    this.props.onLoginRequest(this.state)
+    this.props.onLoginRequest(_.pick(this.state, ["email", "password"]))
   }
 
   _stateUpdate(newState) {
