@@ -1,7 +1,7 @@
 import LoginStore from './LoginStore'
 import promisejs from 'promisejs'
 import sinon from 'sinon';
-import expect from 'expect';
+import { expect } from 'chai'
 
 function getPromiseCallback(cbValue) {
   return {
@@ -19,12 +19,12 @@ describe("logins store", () => {
   describe("loginRequest", () => {
     let credentialsToSend;
     let promiseReturns = {
-        err: undefined,
-        text: 'bla blas',
-        xhr: {
-          status: 200
-        }
-      };
+      err: undefined,
+      text: 'bla blas',
+      xhr: {
+        status: 200
+      }
+    };
 
     beforeEach(() => {
       credentialsToSend = {
@@ -51,7 +51,7 @@ describe("logins store", () => {
       LoginStore.loginRequest(credentialsToSend);
 
       const call = promisejs.promise.post.getCall(0);
-      expect(call.args[1]).toEqual({
+      expect(call.args[1]).to.be.eql({
         email: 'zawiasam@gmail.com',
         password: 'secret'
       });
@@ -61,13 +61,13 @@ describe("logins store", () => {
       LoginStore.loginRequest(credentialsToSend)
 
       const call = promisejs.promise.post.getCall(0);
-      expect(call.args[0]).toEqual("/api/login");
+      expect(call.args[0]).to.be.eql("/api/login");
     });
 
     it("should set login data as authorized when HTTP returned code 200", () => {
       LoginStore.loginRequest(credentialsToSend)
 
-      expect(LoginStore.getLoginData().authorized).toBe(true);
+      expect(LoginStore.getLoginData().authorized).to.be.true;
     });
 
     it("should set login data as authorized when HTTP returned code 400", () => {
@@ -75,7 +75,7 @@ describe("logins store", () => {
       promisejs.promise.post.returns(getPromiseCallback(promiseReturns));
       LoginStore.loginRequest(credentialsToSend)
 
-      expect(LoginStore.getLoginData().authorized).toBe(false);
+      expect(LoginStore.getLoginData().authorized).to.not.be.true;
     });
   })
 
