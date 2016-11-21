@@ -1,5 +1,3 @@
-![develop build](https://api.travis-ci.org/zawiasam/react-express-login-form.svg?branch=develop)
-
 # ReactJs ExpressJs simple login form
 ExpressJs with Firebase on board plus React login form doing simple auth.
 
