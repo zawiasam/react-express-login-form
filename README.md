@@ -1,4 +1,5 @@
 ![develop build](https://api.travis-ci.org/zawiasam/react-express-login-form.svg?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/zawiasam/react-express-login-form/badge.svg?branch=master)](https://coveralls.io/github/zawiasam/react-express-login-form?branch=master)
 
 # ReactJs ExpressJs simple login form
 ExpressJs with Firebase on board plus React login form doing simple auth.

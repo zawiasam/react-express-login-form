@@ -1,5 +1,3 @@
-require("babel-core/register")
-
 // Disable webpack-specific features for tests since
 // Mocha doesn't know what to do with them.
 require.extensions['.css'] = function () {return null;};
@@ -25,4 +23,4 @@ global.navigator = {
   userAgent: 'node.js'
 };
 
-documentRef = document;  //eslint-disable-line no-undef
+global.documentRef = document;  //eslint-disable-line no-undef
