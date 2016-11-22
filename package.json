@@ -7,7 +7,7 @@
     "webpack": "cd client && \"../node_modules/.bin/webpack\"",
     "test": "npm run test:client",
     "test:client": "mocha --compilers js:babel-core/register ./client/dev/tests/setupTestEnv.js ./client/dev/**/*.test.js",
-    "coveralls": "babel-istanbul cover --dir ./coverage node_modules/mocha/bin/_mocha --report lcovonly -- -R spec --ui bdd ./client/dev/tests/setupTestEnv.js ./client/dev/**/*.test.js  && cat ./coverage/lcov.info | node ./node_modules/coveralls/bin/coveralls.js"
+    "coveralls": "babel-istanbul cover --dir ./coverage node_modules/mocha/bin/_mocha --report lcovonly -- -R spec --ui bdd ./client/dev/tests/setupTestEnv.js ./client/dev/**/*.test.js  && cat ./coverage/lcov.info | node ./node_modules/coveralls/bin/coveralls.js && & cat ./coverage/lcov.info"
   },
   "engines": {
     "node": "4.6.0",
