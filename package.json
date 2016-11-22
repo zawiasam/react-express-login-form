@@ -45,6 +45,7 @@
     "jscs": "^3.0.7",
     "jsdom": "^9.8.3",
     "lodash": "^4.17.2",
+    "mocha": "^3.1.2",
     "react": "^15.3.2",
     "react-addons-test-utils": "^15.4.0",
     "react-dom": "^15.3.2",
