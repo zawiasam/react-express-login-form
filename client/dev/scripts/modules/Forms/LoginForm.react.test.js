@@ -7,12 +7,14 @@ import LoginForm from './LoginForm.react'
 import LoginStore from '../../app/Login/LoginStore'
 import formConst from './LoginForm/Const'
 import React from 'react'
+import ReactDOM from 'react-dom'
 import ReactTestUtils from 'react-addons-test-utils'
 
 describe("the LoginForm", function loginFormDescribe() {
-
+    let container;
     function mountLoginForm(onLoginRequestCallback) {
-        return mount(<LoginForm onLoginRequest={ onLoginRequestCallback } routePath="/" />);
+        container = document.createElement("div");
+        return mount(<LoginForm onLoginRequest={ onLoginRequestCallback } routePath="/" />, {attachTo: container});
     }
 
     describe("on render", function dispacedParams() {
@@ -74,6 +76,10 @@ describe("the LoginForm", function loginFormDescribe() {
             formItems.loginInput = loginForm.find('#' + formConst.LOGIN_FLD_ID);
             formItems.passwordInput = loginForm.find('#' + formConst.PASSWORD_FLD_ID);
             formItems.submitBtn = loginForm.find('#' + formConst.LOGIN_BTN_ID);
+        });
+
+        afterEach(() => {
+            ReactDOM.unmountComponentAtNode(container);
         });
 
         it("should pass credentials on login button click", () => {
