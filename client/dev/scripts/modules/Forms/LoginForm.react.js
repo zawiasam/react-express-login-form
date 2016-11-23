@@ -22,6 +22,10 @@ export default class LoginForm extends React.Component {
     LoginStore.addChangeListener(this._stateUpdate);
   }
 
+  componentWillUnmount() {
+    LoginStore.removeChangeListener(this._stateUpdate);
+  }
+
   render() {
     let listElements = [
       (<Form.InputText id={ loginFormConst.LOGIN_FLD_ID } label={ 'e-mail' } onChange={ this._fieldValueChanged } onKeyDown={ this._onKeyDown } />),
@@ -29,8 +33,8 @@ export default class LoginForm extends React.Component {
       (<Form.Button id={ loginFormConst.LOGIN_BTN_ID } label={ 'Zaloguj się' } onClick={ this._loginRequest } />)
     ];
 
-    if (this.state.authorized && !!this.state.shouldRedirect) {
-      LoginStore.setShouldRedirect(false);
+    if (this.state.authorized && !!this.state.loginRequestSucceeded) {
+      LoginStore.setLoginRequestSucceeded(false);
       return (<Redirect location={ this.props.routePath } />)
     }
 

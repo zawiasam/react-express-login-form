@@ -10,7 +10,7 @@ let loginData = {
     email: '',
     userName: '',
     authorized: false,
-    shouldRedirect: false,
+    loginRequestSucceeded: false,
 }
 
 class LoginStore extends EventEmmiter {
@@ -40,7 +40,7 @@ class LoginStore extends EventEmmiter {
     }
 
     loginRequest(credentials) {
-        loginData.shouldRedirect = false;
+        loginData.loginRequestSucceeded = false;
         loginData.email = credentials.email;
 
         promisejs.promise
@@ -52,14 +52,14 @@ class LoginStore extends EventEmmiter {
                     return;
                 } else {
                     loginData.authorized = true;
-                    loginData.shouldRedirect = true;
+                    loginData.loginRequestSucceeded = true;
                 }
                 this.emmitChange();
             });
     }
 
-    setShouldRedirect(option){
-        loginData.shouldRedirect = option;
+    setLoginRequestSucceeded(option){
+        loginData.loginRequestSucceeded = option;
     }
 
     emmitChange() {
@@ -69,7 +69,10 @@ class LoginStore extends EventEmmiter {
     addChangeListener(listener) {
         this.addListener('change', listener);
     }
-}
+
+    removeChangeListener(listener) {
+        this.removeListener('change', listener);
+    }}
 
 let _LoginStore = new LoginStore();
 export default _LoginStore;
