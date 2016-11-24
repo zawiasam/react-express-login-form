@@ -35,6 +35,18 @@ class LoginStore extends EventEmmiter {
         });
     }
 
+    _handleLoginRequestResponse(err, text, xhr) {
+                if (err || xhr.status !== 200) {
+                    console.log('Error: ' + xhr.status);
+                    loginData.authorized = false;
+                    return;
+                } else {
+                    loginData.authorized = true;
+                    loginData.loginRequestSucceeded = true;
+                }
+                this.emmitChange();
+            }
+
     getLoginData() {
         return loginData;
     }
@@ -46,15 +58,7 @@ class LoginStore extends EventEmmiter {
         promisejs.promise
             .post('/api/login', _.pick(credentials, ["email", "password"]))
             .then((err, text, xhr) => {
-                if (err || xhr.status !== 200) {
-                    console.log('Error: ' + xhr.status);
-                    loginData.authorized = false;
-                    return;
-                } else {
-                    loginData.authorized = true;
-                    loginData.loginRequestSucceeded = true;
-                }
-                this.emmitChange();
+                this._handleLoginRequestResponse(err, text, xhr);
             });
     }
 

@@ -1,6 +1,5 @@
 import sinon from 'sinon'
 import { expect } from 'chai'
-
 import { mount } from 'enzyme';
 
 import EventEmitter from '../../arch/EventEmitter'
@@ -15,7 +14,23 @@ describe("the LoginForm", function loginFormDescribe() {
     let container;
     function mountLoginForm(onLoginRequestCallback) {
         container = document.createElement("div");
-        return mount(<LoginForm onLoginRequest={ onLoginRequestCallback } routePath="/" />, {attachTo: container});
+        return mount(<LoginForm onLoginRequest={ onLoginRequestCallback } routePath="/" />, {
+            attachTo: container
+        });
+    }
+    
+    function fillCredentials(formItems, loginCredentials) {
+        ReactTestUtils.Simulate.change(formItems.loginInput.node, {
+            target: {
+                value: loginCredentials.email
+            }
+        });
+
+        ReactTestUtils.Simulate.change(formItems.passwordInput.node, {
+            target: {
+                value: loginCredentials.password
+            }
+        });
     }
 
     describe("on render", function dispacedParams() {
@@ -60,20 +75,6 @@ describe("the LoginForm", function loginFormDescribe() {
             onLoginRequestStub: undefined,
         }
 
-        function fillCredentials(loginCredentials) {
-            ReactTestUtils.Simulate.change(formItems.loginInput.node, {
-                target: {
-                    value: loginCredentials.email
-                }
-            });
-
-            ReactTestUtils.Simulate.change(formItems.passwordInput.node, {
-                target: {
-                    value: loginCredentials.password
-                }
-            });
-        }
-
         beforeEach(function() {
             stubs.onLoginRequestStub = sinon.stub();
             loginForm = mountLoginForm(stubs.onLoginRequestStub);
@@ -92,7 +93,7 @@ describe("the LoginForm", function loginFormDescribe() {
                 email: 'zawiasam@gmail.co.uk',
                 password: 'anypassword'
             };
-            fillCredentials(loginCredentials);
+            fillCredentials(formItems, loginCredentials);
 
             ReactTestUtils.Simulate.click(formItems.submitBtn.node);
             sinon.assert.calledWith(stubs.onLoginRequestStub, loginCredentials)
@@ -103,7 +104,7 @@ describe("the LoginForm", function loginFormDescribe() {
                 email: 'zawiasam@gmail.co.uk',
                 password: 'anypassword'
             };
-            fillCredentials(loginCredentials);
+            fillCredentials(formItems, loginCredentials);
 
             ReactTestUtils.Simulate.click(formItems.submitBtn.node);
             expect(stubs.onLoginRequestStub.calledOnce).to.be.true;
@@ -114,9 +115,13 @@ describe("the LoginForm", function loginFormDescribe() {
                 email: 'zawiasam@gmail.co.uk',
                 password: 'anypassword'
             };
-            fillCredentials(loginCredentials);
+            fillCredentials(formItems, loginCredentials);
 
-            ReactTestUtils.Simulate.keyDown(formItems.loginInput.node, {key: "Enter", keyCode: 13, which: 13});
+            ReactTestUtils.Simulate.keyDown(formItems.loginInput.node, {
+                key: "Enter",
+                keyCode: 13,
+                which: 13
+            });
             expect(stubs.onLoginRequestStub.calledOnce).to.be.true;
         })
 
@@ -125,9 +130,13 @@ describe("the LoginForm", function loginFormDescribe() {
                 email: 'zawiasam@gmail.co.uk',
                 password: 'anypassword'
             };
-            fillCredentials(loginCredentials);
+            fillCredentials(formItems, loginCredentials);
 
-            ReactTestUtils.Simulate.keyDown(formItems.passwordInput.node, {key: "Enter", keyCode: 13, which: 13});
+            ReactTestUtils.Simulate.keyDown(formItems.passwordInput.node, {
+                key: "Enter",
+                keyCode: 13,
+                which: 13
+            });
             expect(stubs.onLoginRequestStub.calledOnce).to.be.true;
         })
     })
