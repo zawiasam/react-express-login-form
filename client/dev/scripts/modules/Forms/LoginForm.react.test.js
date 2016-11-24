@@ -37,9 +37,7 @@ describe("the LoginForm", function loginFormDescribe() {
         let loginForm;
 
         beforeEach(function() {
-            loginForm = mountLoginForm((c) => {
-                console.error(c)
-            });
+            loginForm = mountLoginForm(sinon.stub());
         });
 
         afterEach(() => {
