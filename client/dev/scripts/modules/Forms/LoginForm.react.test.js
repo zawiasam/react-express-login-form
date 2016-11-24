@@ -3,6 +3,7 @@ import { expect } from 'chai'
 
 import { mount } from 'enzyme';
 
+import EventEmitter from '../../arch/EventEmitter'
 import LoginForm from './LoginForm.react'
 import LoginStore from '../../app/Login/LoginStore'
 import formConst from './LoginForm/Const'
@@ -24,6 +25,10 @@ describe("the LoginForm", function loginFormDescribe() {
             loginForm = mountLoginForm((c) => {
                 console.error(c)
             });
+        });
+
+        afterEach(() => {
+            ReactDOM.unmountComponentAtNode(container);
         });
 
         it("should contains BUTTON Login", function itShouldHaveLoginButton() {
@@ -101,6 +106,28 @@ describe("the LoginForm", function loginFormDescribe() {
             fillCredentials(loginCredentials);
 
             ReactTestUtils.Simulate.click(formItems.submitBtn.node);
+            expect(stubs.onLoginRequestStub.calledOnce).to.be.true;
+        })
+
+        it("should execute callback ones on enter keyDown on 'login' input", () => {
+            let loginCredentials = {
+                email: 'zawiasam@gmail.co.uk',
+                password: 'anypassword'
+            };
+            fillCredentials(loginCredentials);
+
+            ReactTestUtils.Simulate.keyDown(formItems.loginInput.node, {key: "Enter", keyCode: 13, which: 13});
+            expect(stubs.onLoginRequestStub.calledOnce).to.be.true;
+        })
+
+        it("should execute callback ones on enter keyDown on 'password' input", () => {
+            let loginCredentials = {
+                email: 'zawiasam@gmail.co.uk',
+                password: 'anypassword'
+            };
+            fillCredentials(loginCredentials);
+
+            ReactTestUtils.Simulate.keyDown(formItems.passwordInput.node, {key: "Enter", keyCode: 13, which: 13});
             expect(stubs.onLoginRequestStub.calledOnce).to.be.true;
         })
     })
