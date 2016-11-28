@@ -16,10 +16,6 @@ class Redirect extends React.Component {
   }
 }
 
-Redirect.defaultProps = {
-  router: [],
-}
-
 Redirect.contextTypes = {
   router: React.PropTypes.object.isRequired,
   location() {

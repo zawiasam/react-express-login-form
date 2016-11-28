@@ -16,9 +16,18 @@ describe("Login.React.js", () => {
     let stubs;
     function mountLoginForm() {
         container = document.createElement("div");
-        return mount(<AppLogin />, {
-            attachTo: container
-        });
+        const opts = {
+            attachTo: container,
+            context: {
+                router: {
+                    push: ()=>{}
+                },
+            },
+            childContextTypes: {
+                router: React.PropTypes.object.isRequired
+            }
+        }
+        return mount(<AppLogin />, opts);
     }
     function fillCredentials(formItems, loginCredentials) {
         ReactTestUtils.Simulate.change(formItems.loginInput.node, {
