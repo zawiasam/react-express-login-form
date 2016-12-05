@@ -63,6 +63,27 @@ class DbFirebase {
       }
     });
   }
+
+  pushObject(item) {
+    return new Promise((resolve, reject) => {
+      try {
+        let itemsRef = firebase.database().ref();
+        itemsRef.update(item, function onPushObjectComplate(reason) {
+          if (reason) {
+            /* reject */
+            logger.error(reason);
+            reject(reason);
+          } else {
+            /* resolve */
+            resolve();
+          }
+        });
+      } catch (err) {
+        logger.error(err);
+        reject(err);
+      }
+    });
+  }
 }
 
 export default new DbFirebase();

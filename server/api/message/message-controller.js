@@ -12,11 +12,18 @@ export default class MessagesCtrl {
   }
 
   static sendMessage(req, res) {
-    let message = _.pick(req.body, ["title", "message"]);
-    let receiver = _.pick(req.body, ["receiver"]).receiver || "temp";
+    let message = _.pick(req.body, ["title", "body"]);
+    let receivers = _.pick(req.body, ["receivers"]);
+    console.log(message);
+    console.log(receivers);
+    receivers = receivers.receivers.split(',');
     message.createdAt = moment().format();
 
-    dbFirebase.pushItem("messagess/" + receiver, message).then(() => {
+    let messages = {};
+    receivers.forEach((receiver) => {
+      messages[`messages/${receiver}`] = message
+    }, this);
+    dbFirebase.pushObject(messages).then(() => {
       res.status(200).send();
     }, (err) => {
       res.status(500).json(err);

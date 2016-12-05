@@ -1,3 +1,4 @@
+import promisejs from 'promisejs'
 import Dispatchers from '../Common/Dispatchers'
 import NewMessageConst from './NewMessageConst'
 import { RoutePath } from '../Index/IndexConstants'
@@ -24,7 +25,9 @@ class NewMessageStore extends EventEmmiter {
     get newMessageUri(){
         return RoutePath.Inbox
     }
+
     sendMessage(message) {
+        promisejs.promise.post("/api/message", message)
         console.log("message was send");
         this.emmitChange();
     }
