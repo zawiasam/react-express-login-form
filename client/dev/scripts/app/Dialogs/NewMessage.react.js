@@ -7,10 +7,11 @@ import LoginStore from '../Login/LoginStore'
 import * as FormElements from '../../modules/Commons/FormElements.react'
 import 'react-select2-wrapper/css/select2.min.css'
 import NewMessageActions from './NewMessageActions'
+import NewMessageStore from './NewMessageStore'
 
 export default class NewMessage extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
     this.state = {
       message: {
         title: '',
@@ -22,7 +23,10 @@ export default class NewMessage extends React.Component {
     this._onDialogAccept = this._onDialogAccept.bind(this);
     this._onChange = this._onChange.bind(this);
     this._addressBookStoreChanged = this._addressBookStoreChanged.bind(this);
+    this._newMessageChanged = this._newMessageChanged.bind(this);
+    
     AddressBookStore.addChangeListener(this._addressBookStoreChanged);
+    NewMessageStore.addChangeListener(this._newMessageChanged)
   }
 
   componentDidMount() {
@@ -32,6 +36,7 @@ export default class NewMessage extends React.Component {
 
   componentWillUnmount() {
     AddressBookStore.removeChangeListener(this._addressBookStoreChanged);
+    NewMessageStore.removeChangeListener(this._newMessageChanged);
   }
 
   _addressBookStoreChanged(change) {
@@ -39,6 +44,10 @@ export default class NewMessage extends React.Component {
       addressBookEntries: AddressBookStore.data,
       categories: []
     })
+  }
+
+  _newMessageChanged() {
+    this.context.router.push(NewMessageStore.newMessageUri);
   }
 
   _onChange(args) {
@@ -131,5 +140,12 @@ export default class NewMessage extends React.Component {
                 </div>
               </form>
             </div>)
+  }
+}
+
+NewMessage.contextTypes = {
+  router: React.PropTypes.object.isRequired,
+  location() {
+    React.PropTypes.func.isRequired
   }
 }
