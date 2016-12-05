@@ -1,10 +1,10 @@
 import LoginConstants from './LoginConstants'
-import LoginDispatcher from './LoginDispatcher'
+import Dispatchers from '../Common/Dispatchers'
 import _ from 'lodash'
 
 class LoginActions {
     static doLoginRequest(payload) {
-        LoginDispatcher.dispatch({
+        Dispatchers.LoginDispatcher.dispatch({
             type: LoginConstants.LOGIN_REQUESTED,
             credentials: {
                 email: payload.email,

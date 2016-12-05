@@ -1,10 +1,10 @@
 import AddressBookConstants from './AddressBookConstants'
-import AddressBookDispatcher from './AddressBookDispatcher'
+import Dispatchers from '../Common/Dispatchers'
 import _ from 'lodash'
 
 class UserActions {
     static getAddressBookData(payload) {
-        AddressBookDispatcher.dispatch({
+        Dispatchers.AddressBookDispatcher.dispatch({
             type: AddressBookConstants.GET_ADDRESS_BOOK,
             callee: {
                 email: payload.user,

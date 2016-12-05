@@ -1,6 +1,6 @@
 import promisejs from 'promisejs'
 import EventEmmiter from '../../arch/EventEmitter'
-import AddressBookDispatcher from './AddressBookDispatcher'
+import Dispatchers from '../Common/Dispatchers'
 import AddressBookConstants from './AddressBookConstants'
 import ErrorActions from '../Error/ErrorActions'
 import ErrorConstants from '../Error/ErrorConstants'
@@ -21,7 +21,8 @@ class AddressBookStore extends EventEmmiter {
     this.getAddressBook = this.getAddressBook.bind(this);
 
     store = {};
-    AddressBookDispatcher.register((action) => {
+    
+    Dispatchers.AddressBookDispatcher.register((action) => {
       switch (action.type) {
         case AddressBookConstants.GET_ADDRESS_BOOK:
           this.getAddressBook(action.callee)
