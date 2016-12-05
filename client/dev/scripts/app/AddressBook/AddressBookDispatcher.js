@@ -1,4 +1,3 @@
 import Dispatcher from '../../arch/dispatcher';
-let _userDispatcher = new Dispatcher();
 
-export default _userDispatcher
+export default Dispatcher.getDispatcher('AddressBookDispatcher');

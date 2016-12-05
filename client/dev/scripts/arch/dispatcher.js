@@ -1,4 +1,5 @@
-export default class Dispatcher {
+/** Class representing a dispatcher. */
+export class Dispatcher {
     constructor() {
         this._id = 0;
         this._callbacks = {};
@@ -40,3 +41,21 @@ export default class Dispatcher {
     }
 }
 
+let dispatchInstances = {};
+
+export default class DispatcherFactory {
+
+    /**
+     * Takes dispatcher name and returns single instance
+     * @param {string} name dispatcher name
+     * @return {Dispatcher} single instance of Dispatcher
+     */
+    static getDispatcher(name) {
+        if (!name) {
+            throw 'Dispatcher name is missing';
+        }
+
+        dispatchInstances[name] = dispatchInstances[name] || new Dispatcher();
+        return dispatchInstances[name];
+    }
+}
