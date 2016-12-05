@@ -27,7 +27,7 @@ const RoutesConfig = {
   Inbox: {
     path: IndexConstants.Routes.Inbox,
     scopes: ["router", "menu"],
-    label: "Skrzynka odbiocza",
+    label: "Zgłoszenia",
     materialIconName: "inbox"
   },
   Settlement: {
