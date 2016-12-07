@@ -12,21 +12,22 @@ export default class MessagesCtrl {
   }
 
   static sendMessage(req, res) {
-    let message = _.pick(req.body, ["title", "body"]);
-    let receivers = _.pick(req.body, ["receivers"]);
-    console.log(message);
-    console.log(receivers);
-    receivers = receivers.receivers.split(',');
-    message.createdAt = moment().format();
+    let message = _.pick(req.body, ["title", "body", "receivers"]);
+    let transmitTo = message.receivers;
 
-    let messages = {};
-    receivers.forEach((receiver) => {
-      messages[`messages/${receiver}`] = message
-    }, this);
-    dbFirebase.pushObject(messages).then(() => {
-      res.status(200).send();
-    }, (err) => {
+    message.createdAt = moment().format();
+    dbFirebase.pushItem("messageList", message).then((r) => {
+      let messages = {};
+      transmitTo.forEach((receiver) => {
+        messages[`userData/${receiver}/messages/${r.key}`] = {status: "unread"}
+      }, this);
+      dbFirebase.pushObject(messages).then(() => {
+        res.status(200).send();
+      }, (err) => {
+        res.status(500).json(err);
+      })
+    }, (e) => {
       res.status(500).json(err);
-    })
+    });
   }
 }

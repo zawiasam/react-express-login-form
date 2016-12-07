@@ -27,7 +27,7 @@ class NewMessageStore extends EventEmmiter {
     }
 
     sendMessage(message) {
-        promisejs.promise.post("/api/message", message)
+        promisejs.promise.post("/api/message", JSON.stringify(message), {"content-type": "application/json"})
         console.log("message was send");
         this.emmitChange();
     }

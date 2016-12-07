@@ -43,18 +43,24 @@ class DbFirebase {
     });
   }
 
+/**
+ * adds new entry in firbase
+ * @param {string} tableName name of db object
+ * @param {Object} item value of entry
+ */
   pushItem(tableName, item) {
     return new Promise((resolve, reject) => {
       try {
         let itemsRef = firebase.database().ref(tableName);
-        itemsRef.push(item, function onPushItemComplate(reason) {
+        let newItemRef = itemsRef.push();
+        newItemRef.set(item, function onPushItemComplate(reason) {
           if (reason) {
             /* reject */
             logger.error(reason);
             reject(reason);
           } else {
             /* resolve */
-            resolve();
+            resolve(_.pick(newItemRef, ["key"]));
           }
         });
       } catch (err) {
