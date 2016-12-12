@@ -1,3 +1,9 @@
+/**
+ * Action class
+ * @typedef Action
+ * @property {string} type - action type to dispatch
+ */
+    
 /** Class representing a dispatcher. */
 export class Dispatcher {
     constructor() {
@@ -5,14 +11,9 @@ export class Dispatcher {
         this._callbacks = {};
     }
 
-    /**
-     * @typedef {Object} Action
-     * @property {string} type An action name.
-     */
-    
+
     /**
      * This callback type is called `requestCallback` and is displayed as a global symbol.
-     *
      * @callback {func} actionCallback
      * @param {Action} action
      */
@@ -31,8 +32,8 @@ export class Dispatcher {
     }
 
     /**
-     * Takes an action
-     * @param {Action} action
+     * Dispatches an action
+     * @param {Action} action action to dispatch
      */
     dispatch(action) {
         for (let callbackId in this._callbacks) {
