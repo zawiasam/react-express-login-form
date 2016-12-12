@@ -74,7 +74,7 @@ export default class MessagesCtrl {
           res.status(500).json(err);
         })
       }, (e) => {
-        res.status(500).json(err);
+        res.status(500).json(e);
       });
     })
   }
