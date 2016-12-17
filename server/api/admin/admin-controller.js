@@ -1,37 +1,35 @@
 import db from '../../commons/db-firebase.js';
 import _ from 'lodash'
+import adminLogic from './logic/admin-controller-logic'
+import adminLogicFake from './logic/admin-controller-logic-fake'
 
-function createGroup(group) {
-    return new Promise((resolve, reject) => {
-        db.pushItem("/groups", group).then(resolve, reject);
-    })
+function authSuccess(data, res) {
+    res.status(200).send(data);
+}
+function authFaild(reason, res) {
+    res.status(401).send(reason);
 }
 
-function createGroupFake(group) {
-    return new Promise((resolve, reject) => {
-        resolve(group.name)
-    });
-}
+const logic = adminLogic;
 
-let di = {
-    prod: {
-        createGroup: createGroup
-    },
-    fake: {
-        createGroup: createGroupFake
-    }
-}
-
-export default class AddressBookController {
+export default class AdminController {
     static newGroup(req, res, next) {
         let groupObj = _.pick(req.body, "name");
 
-        di['fake'].createGroup(groupObj)
-            .then(function authSuccess(data) {
-                res.status(200).send(data);
-            },
-                function authFaild(reason) {
-                    res.status(401).send(reason);
-                });
+        logic.createGroup(groupObj)
+            .then((d) => authSuccess(d, res), (e) => authFaild(e, res));
+    }
+
+    static newUser(req, res, next) {
+        let userObj = _.pick(req.body, "email", "firstName", "lastName", "address");
+
+        logic.newUser(userObj)
+            .then((d) => authSuccess(d, res), (e) => authFaild(e, res));
+    }
+
+    static addUserIdToGroupId(req, res, next) {
+        let userIdAndGroupId = _.pick(req.body, "userId", "groupId");
+        logic.addUserIdToGroupId(userIdAndGroupId.userId, userIdAndGroupId.groupId)
+            .then((d) => authSuccess(d, res), (e) => authFaild(e, res))
     }
 }

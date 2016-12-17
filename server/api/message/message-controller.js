@@ -6,7 +6,7 @@ import moment from 'moment';
 
 class MessagesCtrlHelpers {
 
-  static getExistingAndNotExistingUsers(userIdArray) {
+  static areUsersExist(userIdArray) {
     return new Promise((res, rej) => {
       let existingUsers = [];
       let nonExistingUsers = [];
@@ -47,7 +47,7 @@ export default class MessagesCtrl {
   static sendMessage(req, res) {
     let message = _.pick(req.body, ["title", "body", "receivers"]);
 
-    MessagesCtrlHelpers.getExistingAndNotExistingUsers(message.receivers).then((val) => {
+    MessagesCtrlHelpers.areUsersExist(message.receivers).then((val) => {
       return new Promise((res) => {
         if (val.nonExistingUsers.length) {
           Logger.bizWarning(`some receivers are not accessible ${JSON.stringify(val.nonExistingUsers)}`)

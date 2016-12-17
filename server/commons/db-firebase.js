@@ -38,6 +38,34 @@ class DbFirebase {
     });
   }
 
+  /**
+   * gets value from given reference and returns data property
+   * @param {string} tableName acctualy it's path to db reference
+   * @param {string} itemId id of item
+   * @return {Promise} on scucess data, on fail reason 
+   */
+  getItem(tableName, itemId) {
+    return new Promise((resolve, reject) => {
+      try {
+        let dbItems = firebase.database().ref(`${tableName}/${itemId}`);
+
+        dbItems.once('value').then((snaps) => {
+          /* resolve */
+          var value = snaps.val();
+          resolve(value);
+          
+        }, (reason) => {
+          /* reject */
+          Logger.dbLogError(reason);
+          reject(reason);
+        });
+      } catch (err) {
+        Logger.dbLogError(err);
+        reject(err);
+      }
+    });
+  }
+
   hasValue(tableName) {
     return new Promise((resolve, reject) => {
       try {
