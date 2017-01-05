@@ -48,7 +48,7 @@ let bizLogger = new (winston.Logger)({
   ]
 });
 
-class PrivertLogger {
+class PrivetLogger {
   /**
    * log message using given logger, at given level, with given message
    * @param {WinstonLogger} logger instance of logger
@@ -67,7 +67,7 @@ export default class Logger {
    * @param {string} message message to log
    */
   static dbLog(level, message) {
-    PrivertLogger.log(dbLogger, level, message);
+    PrivetLogger.log(dbLogger, level, message);
   }
 
   /**
@@ -84,7 +84,7 @@ export default class Logger {
    * @param {string} message description
    */
   static bizLog(level, message) {
-    PrivertLogger.log(bizLogger, level, message)
+    PrivetLogger.log(bizLogger, level, message)
   }
 
   /**

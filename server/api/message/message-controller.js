@@ -48,16 +48,16 @@ export default class MessagesCtrl {
     let message = _.pick(req.body, ["title", "body", "receivers"]);
 
     MessagesCtrlHelpers.areUsersExist(message.receivers).then((val) => {
-      return new Promise((res) => {
+      return new Promise((resolve) => {
         if (val.nonExistingUsers.length) {
           Logger.bizWarning(`some receivers are not accessible ${JSON.stringify(val.nonExistingUsers)}`)
         }
-        res(val.existingUsers || []);
+        resolve(val.existingUsers || []);
       })
     }, (err) => {
       Logger.bizError(`could not validate all users. Fillfulled ${err.fillfull}`)
-      return new Promise((res)=> {
-        res([]);
+      return new Promise((resolve)=> {
+        resolve([]);
       })
     }).then((users) => {
       message.createdAt = moment().format();

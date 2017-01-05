@@ -3,10 +3,11 @@ import _ from 'lodash'
 import adminLogic from './logic/admin-controller-logic'
 import adminLogicFake from './logic/admin-controller-logic-fake'
 
-function authSuccess(data, res) {
+function operationSuccess(data, res) {
     res.status(200).send(data);
 }
-function authFaild(reason, res) {
+
+function operationFaild(reason, res) {
     res.status(401).send(reason);
 }
 
@@ -17,19 +18,19 @@ export default class AdminController {
         let groupObj = _.pick(req.body, "name");
 
         logic.createGroup(groupObj)
-            .then((d) => authSuccess(d, res), (e) => authFaild(e, res));
+            .then((d) => operationSuccess(d, res), (e) => operationFaild(e, res));
     }
 
     static newUser(req, res, next) {
         let userObj = _.pick(req.body, "email", "firstName", "lastName", "address");
 
         logic.newUser(userObj)
-            .then((d) => authSuccess(d, res), (e) => authFaild(e, res));
+            .then((d) => operationSuccess(d, res), (e) => operationFaild(e, res));
     }
 
     static addUserIdToGroupId(req, res, next) {
         let userIdAndGroupId = _.pick(req.body, "userId", "groupId");
         logic.addUserIdToGroupId(userIdAndGroupId.userId, userIdAndGroupId.groupId)
-            .then((d) => authSuccess(d, res), (e) => authFaild(e, res))
+            .then((d) => operationSuccess(d, res), (e) => operationFaild(e, res))
     }
 }
