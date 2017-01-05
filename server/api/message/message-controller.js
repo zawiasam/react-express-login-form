@@ -37,7 +37,7 @@ class MessagesCtrlHelpers {
 
 export default class MessagesCtrl {
   static getAllMessages(req, res) {
-    dbFirebase.getAll('messagess').then((items) => {
+    dbFirebase.getAll('messages').then((items) => {
       res.status(200).json(items);
     }, (err) => {
       res.status(500).send();
