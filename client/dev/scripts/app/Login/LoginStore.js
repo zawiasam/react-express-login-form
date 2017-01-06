@@ -1,6 +1,6 @@
 import EventEmmiter from '../../arch/EventEmitter'
 
-import LoginDispatcher from './LoginDispatcher'
+import Dispatchers from '../Common/Dispatchers'
 import LoginConstants from './LoginConstants'
 
 import promisejs from 'promisejs'
@@ -24,7 +24,7 @@ class LoginStore extends EventEmmiter {
             .addChangeListener
             .bind(this);
 
-        LoginDispatcher.register((action) => {
+        Dispatchers.LoginDispatcher.register((action) => {
             switch (action.type) {
                 case LoginConstants.LOGIN_REQUESTED:
                     {

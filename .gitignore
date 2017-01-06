@@ -1,10 +1,17 @@
 # Do not track
+
+## Node modules wherever they are
 **/node_modules/*
+
+## Test output
 coverage/*
 
+## webpack out
 client/app/*
 client/cache/*
 
+## some other files
+*.log
 
 # exceptions
 !client/node_modules/promisejs

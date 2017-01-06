@@ -3,7 +3,6 @@ import { expect } from 'chai'
 
 import LoginActions from './LoginActions.js'
 import LoginStore from './LoginStore.js'
-import LoginDispatcher from './LoginDispatcher'
 
 describe("the LoginActions", function loginActionsDescribe() {
     describe("action doLoginRequest", function dispacedParams() {
