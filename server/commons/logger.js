@@ -10,7 +10,7 @@ import winston from 'winston';
 
 /**
  * Logger types
- * @typedef {('info'|'warn'|'error')} LogType - Allowed Logger types
+ * @typedef {('verbose'|'info'|'warn'|'error')} LogType - Allowed Logger types
  */
 
 /**
@@ -22,16 +22,19 @@ let errorLevel = {
   error: 'error',
   warn: 'warn',
   info: 'info',
+  verbose: 'verbose',
+  debug: 'debug',
+  silly: 'silly',
 }
 
 let dbLogger = new (winston.Logger)({
   transports: [
     new (winston.transports.Console)({
-      level: 'info'
+      level: errorLevel.debug,
     }),
     new (winston.transports.File)({
       filename: "db-logger.log",
-      level: "warn"
+      level: errorLevel.info,
     })
   ]
 });
@@ -39,11 +42,11 @@ let dbLogger = new (winston.Logger)({
 let bizLogger = new (winston.Logger)({
   transports: [
     new (winston.transports.Console)({
-      level: 'info'
+      level: errorLevel.debug,
     }),
     new (winston.transports.File)({
       filename: "biz-logger.log",
-      level: "warn"
+      level: errorLevel.info,
     })
   ]
 });
@@ -74,8 +77,32 @@ export default class Logger {
    * log db error
    * @param {string} message error message
    */
-  static dbLogError(message) {
-    this.dbLog('error', message);
+  static dbError(message) {
+    this.dbLog(errorLevel.error, message);
+  }
+
+  /**
+   * log db info
+   * @param {string} message error message
+   */
+  static dbInfo(message) {
+    this.dbLog(errorLevel.info, message);
+  }
+
+  /**
+   * log db verbose
+   * @param {string} message error message
+   */
+  static dbVerbose(message) {
+    this.dbLog(errorLevel.verbose, message);
+  }
+
+  /**
+   * log db debug
+   * @param {string} message error message
+   */
+  static dbLogDebug(message) {
+    this.dbLog(errorLevel.debug, message);
   }
 
   /**
@@ -92,7 +119,7 @@ export default class Logger {
    * @param {string} message description
    */
   static bizError(message) {
-    this.bizLog("error", message);
+    this.bizLog(errorLevel.error, message);
   }
 
   /**
@@ -100,6 +127,22 @@ export default class Logger {
    * @param {string} message description
    */
   static bizWarning(message) {
-    this.bizLog("warn", message);
+    this.bizLog(errorLevel.warn, message);
+  }
+
+  /**
+   * log biz info
+   * @param {string} message description
+   */
+  static bizInfo(message) {
+    this.bizLog(errorLevel.info, message);
+  }
+
+  /**
+   * log biz debug
+   * @param {string} message description
+   */
+  static bizDebug(message) {
+    this.bizLog(errorLevel.debug, message);
   }
 }

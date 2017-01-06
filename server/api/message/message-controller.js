@@ -1,5 +1,6 @@
-import dbFirebase from '../../commons/db-firebase.js';
-import userFirebase from '../../commons/user-firebase.js';
+import dbFirebase from '../../commons/db-firebase';
+import userFirebase from '../../commons/user-firebase';
+import messagesDao from '../../commons/messages-dao';
 import Logger from '../../commons/logger.js';
 import _ from 'lodash';
 import moment from 'moment';
@@ -7,7 +8,7 @@ import moment from 'moment';
 class MessagesCtrlHelpers {
 
   static areUsersExist(userIdArray) {
-    return new Promise((res, rej) => {
+    return new Promise((resolve, reject) => {
       let existingUsers = [];
       let nonExistingUsers = [];
       let fillfull = 0;
@@ -20,13 +21,13 @@ class MessagesCtrlHelpers {
           }
           fillfull++;
           if (fillfull === userIdArray.length) {
-            res({
+            resolve({
               existingUsers: existingUsers,
               nonExistingUsers: nonExistingUsers,
             })
           }
         }, (err) => {
-          rej({
+          reject({
             fillfull: fillfull
           });
         })
@@ -37,10 +38,13 @@ class MessagesCtrlHelpers {
 
 export default class MessagesCtrl {
   static getAllMessages(req, res) {
-    dbFirebase.getAll('messages').then((items) => {
+    Logger.bizDebug(`get messagess with req.body [${JSON.stringify(req.query)}]`);
+    let data = _.pick(req.query, ["userId"]);
+    Logger.bizInfo(`getting messages for user [${data.userId}]`)
+    messagesDao.getMessagesByUserId(data.userId).then((items) => {
       res.status(200).json(items);
     }, (err) => {
-      res.status(500).send();
+      res.status(err.httpStatus).send(err.message);
     })
   }
 

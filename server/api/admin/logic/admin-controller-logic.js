@@ -1,5 +1,5 @@
 import db from '../../../commons/db-firebase';
-import ErrorFactory from '../../../commons/error-factory';
+import ErrorFactory from '../../../commons/app-errors';
 import _ from 'lodash'
 
 function createGroup(group) {
@@ -32,7 +32,7 @@ function addUserIdToGroupId(userId, groupId) {
                 toUpdate[groupPath] = group;
                 db.updateObject(toUpdate).then(resolve, reject);
             } else {
-                reject(ErrorFactory.BizError(`could not find group for id ${groupId}`));
+                reject(ErrorFactory.BizError(undefined ,`could not find group of id ${groupId}`));
             }
         })
     })

@@ -28,11 +28,11 @@ class DbFirebase {
           
         }, (reason) => {
           /* reject */
-          Logger.dbLogError(reason);
+          Logger.dbError(reason);
           reject(reason);
         });
       } catch (err) {
-        Logger.dbLogError(err);
+        Logger.dbError(err);
         reject(err);
       }
     });
@@ -56,11 +56,11 @@ class DbFirebase {
           
         }, (reason) => {
           /* reject */
-          Logger.dbLogError(reason);
+          Logger.dbError(reason);
           reject(reason);
         });
       } catch (err) {
-        Logger.dbLogError(err);
+        Logger.dbError(err);
         reject(err);
       }
     });
@@ -77,11 +77,11 @@ class DbFirebase {
           resolve(result !== null);
         }, (reason) => {
           /* reject */
-          Logger.dbLogError(reason);
+          Logger.dbError(reason);
           reject(reason);
         });
       } catch (err) {
-        Logger.dbLogError(err);
+        Logger.dbError(err);
         reject(err);
       }
     });
@@ -101,7 +101,7 @@ class DbFirebase {
         newItemRef.set(item, function onPushItemComplate(reason) {
           if (reason) {
             /* reject */
-            Logger.dbLogError(reason);
+            Logger.dbError(reason);
             reject(reason);
           } else {
             /* resolve */
@@ -109,7 +109,7 @@ class DbFirebase {
           }
         });
       } catch (err) {
-        Logger.dbLogError(err);
+        Logger.dbError(err);
         reject(err);
       }
     });
@@ -127,7 +127,7 @@ class DbFirebase {
         itemsRef.update(item, function onUpdateObjectComplate(reason) {
           if (reason) {
             /* reject */
-            Logger.dbLogError(reason);
+            Logger.dbError(reason);
             reject(reason);
           } else {
             /* resolve */
@@ -135,7 +135,7 @@ class DbFirebase {
           }
         });
       } catch (err) {
-        Logger.dbLogError(err);
+        Logger.dbError(err);
         reject(err);
       }
     });
