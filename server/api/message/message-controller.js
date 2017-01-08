@@ -1,13 +1,25 @@
 import dbFirebase from '../../commons/db-firebase';
-import userFirebase from '../../commons/user-firebase';
+import userFirebase from '../../commons/user-dao';
 import messagesDao from '../../commons/messages-dao';
 import Logger from '../../commons/logger.js';
 import _ from 'lodash';
 import moment from 'moment';
 
+class ErrorHadler {
+  static handle(err, res) {
+    res.status(err.httpStatus).send(err.message);
+  }
+}
 class MessagesCtrlHelpers {
-
-  static areUsersExist(userIdArray) {
+  static handleExistingAndNonExistingUsers(users) {
+    return new Promise((resolve) => {
+      if (users.nonExistingUsers.length) {
+        Logger.bizWarning(`some receivers are not accessible ${JSON.stringify(users.nonExistingUsers)}`)
+      }
+      resolve(users.existingUsers || []);
+    })
+  }
+  static whichUsersExistAndWhichNot(userIdArray) {
     return new Promise((resolve, reject) => {
       let existingUsers = [];
       let nonExistingUsers = [];
@@ -26,11 +38,7 @@ class MessagesCtrlHelpers {
               nonExistingUsers: nonExistingUsers,
             })
           }
-        }, (err) => {
-          reject({
-            fillfull: fillfull
-          });
-        })
+        }, reject)
       });
     })
   }
@@ -44,26 +52,14 @@ export default class MessagesCtrl {
     messagesDao.getMessagesByUserId(data.userId).then((items) => {
       res.status(200).json(items);
     }, (err) => {
-      res.status(err.httpStatus).send(err.message);
+      ErrorHadler.handle(err, res);
     })
   }
 
   static sendMessage(req, res) {
     let message = _.pick(req.body, ["title", "body", "receivers"]);
 
-    MessagesCtrlHelpers.areUsersExist(message.receivers).then((val) => {
-      return new Promise((resolve) => {
-        if (val.nonExistingUsers.length) {
-          Logger.bizWarning(`some receivers are not accessible ${JSON.stringify(val.nonExistingUsers)}`)
-        }
-        resolve(val.existingUsers || []);
-      })
-    }, (err) => {
-      Logger.bizError(`could not validate all users. Fillfulled ${err.fillfull}`)
-      return new Promise((resolve)=> {
-        resolve([]);
-      })
-    }).then((users) => {
+    MessagesCtrlHelpers.whichUsersExistAndWhichNot(message.receivers).then(handleExistingAndNonExistingUsers).then((users) => {
       message.createdAt = moment().format();
       dbFirebase.pushItem("messageList", message).then((messageRef) => {
         let messages = {};
@@ -75,10 +71,10 @@ export default class MessagesCtrl {
         dbFirebase.updateObject(messages).then(() => {
           res.status(200).send();
         }, (err) => {
-          res.status(500).json(err);
+          ErrorHadler.handle(err, res);
         })
       }, (e) => {
-        res.status(500).json(e);
+        ErrorHadler.handle(e, res);
       });
     })
   }
