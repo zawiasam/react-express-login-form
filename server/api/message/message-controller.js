@@ -47,8 +47,10 @@ class MessagesCtrlHelpers {
 export default class MessagesCtrl {
   static getAllMessages(req, res) {
     Logger.bizDebug(`get messagess with req.body [${JSON.stringify(req.query)}]`);
+    
     let data = _.pick(req.query, ["userId"]);
     Logger.bizInfo(`getting messages for user [${data.userId}]`)
+    
     messagesDao.getMessagesByUserId(data.userId).then((items) => {
       res.status(200).json(items);
     }, (err) => {
