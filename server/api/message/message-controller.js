@@ -12,7 +12,7 @@ class ErrorHadler {
   }
 }
 class MessagesCtrlHelpers {
-  static getGoupsAndUsers(receivers) {
+  getGoupsAndUsers(receivers) {
     return new Promise((resolve) => {
       let groupsAndUsers = {
         groups: [],
@@ -29,32 +29,32 @@ class MessagesCtrlHelpers {
     })
   }
 
-  static extractUsersFromGroups(groupDefs) {
+  getExistingGroups(groupDefs) {
     return new Promise((resolve, reject) => {
       let notExistingGroups = [];
-      let groupUsers = [];
+      let existingGroups = [];
 
       groupDefs.forEach((groupDef) => {
         let groupName = groupDef.id;
-        Logger.bizWarning(`looking for group ${groupName}`);
+        Logger.bizInfo(`looking for group ${groupName}`);
         groupFirebase.getGroupByName(groupName).then((group) => {
           console.log(group);
           if (group) {
-            groupUsers.push(groupName);
+            existingGroups.push(groupName);
           } else {
             notExistingGroups.push(groupName);
           }
         }, reject)
       });
 
-      resolve({
-        groupUsers: groupUsers,
-        notExistingGroups: notExistingGroups,
-      })
+      if (notExistingGroups.length) {
+        Logger.bizWarning(`Some groups does not exist ${notExistingGroups}`);
+      }
+      resolve(existingGroups)
     })
   }
 
-  static reportNotExistingUsers(users) {
+  reportNotExistingUsers(users) {
     return new Promise((resolve) => {
       if (users.nonExistingUsers.length) {
         Logger.bizWarning(`some receivers are not accessible ${JSON.stringify(users.nonExistingUsers)}`)
@@ -63,7 +63,17 @@ class MessagesCtrlHelpers {
     })
   }
 
-  static whichUsersExistAndWhichNot(userIdArray) {
+  getGroupUsers(groupArray){
+    return new Promise((resolve, reject) => {
+      if (groupArray.length) {
+
+      } else {
+        resolve([]);
+      }
+    })
+  }
+
+  whichUsersExistAndWhichNot(userIdArray) {
     return new Promise((resolve, reject) => {
       let existingUsers = [];
       let nonExistingUsers = [];
@@ -88,8 +98,8 @@ class MessagesCtrlHelpers {
   }
 }
 
-export default class MessagesCtrl {
-  static getAllMessages(req, res) {
+class MessagesCtrl {
+  getAllMessages(req, res) {
     Logger.bizDebug(`get messagess with req.body [${JSON.stringify(req.query)}]`);
 
     let data = _.pick(req.query, ["userId"]);
@@ -102,26 +112,37 @@ export default class MessagesCtrl {
     })
   }
 
-  static sendMessage(req, res) {
+  sendMessage(req, res) {
     let message = _.pick(req.body, ["title", "body", "receivers"]);
     let groupsAndUsers = undefined;
     let users = undefined;
+    let groups = undefined;
 
-    MessagesCtrlHelpers.getGoupsAndUsers(message.receivers)
+    let helper = new MessagesCtrlHelpers();
+    let query = {
+      ctx: {
+        calle: 'mza'
+      },
+      input: {
+        message: message
+      },
+      intermediate: {
+        knownGroups: [],
+        knownUsers: [],
+      },
+      output: {
+        res: res
+      }
+    }
+    helper.getGoupsAndUsers(message.receivers)
       .then((data) => {
         groupsAndUsers = data;
         users = groupsAndUsers.users;
-        return MessagesCtrlHelpers.extractUsersFromGroups(groupsAndUsers.groups);
+        return helper.getExistingGroups(groupsAndUsers.groups);
       })
-      .then((data) => {
-        if (data) {
-          users = users.concat(data)
-        }
-        return MessagesCtrlHelpers.whichUsersExistAndWhichNot(users);
-      })
-      .then((usersExistingAndNot) => {
-        return MessagesCtrlHelpers.reportNotExistingUsers(usersExistingAndNot);
-      })
+      .then(helper.getGroupUsers)
+      .then(helper.whichUsersExistAndWhichNot)
+      .then(helper.reportNotExistingUsers)
       .then((users) => {
         message.createdAt = moment().format();
         dbFirebase.pushItem("messageList", message).then((messageRef) => {
@@ -145,3 +166,5 @@ export default class MessagesCtrl {
       })
   }
 }
+
+export default new MessagesCtrl();
